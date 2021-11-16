@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <odoo>
+  <data>
+
+    <record id="view_itriplee_servicio_form" model="ir.ui.view">
+      <field name="name">view.itriplee.servicio.form</field>
+      <field name="model">itriplee.servicio</field>
+      <field name="arch" type="xml">
+        <form string="Servicio Form">
+          <sheet>
+            <group>
+              <field name="cliente"
+              domain="[('customer','=',True)]"
+              options="{'no_create_edit': True},
+               {'no_quick_create'}"/>
+              <field name="visita"/>
+            </group>
+            <notebook colspan='4'>
+            <page name='servicios_servicio' string='Servicio'>
+            <group>  
+            <group>
+              <field name="tipo_visita"/>              
+              <field name="prioridad"/>
+              <!-- <field name="estado"/> -->
+              <field name="estado_equipo"/>
+            </group>
+            <group>
+              <field name="ubicacion"/>
+              <field name="tecnico"
+              options="{'no_create_edit': True},
+                        {'no_quick_create'}"/>
+              <field name="vendedor"
+              options="{'no_create_edit': True},
+                        {'no_quick_create'}"/>
+              <field name="reinsidencia"/>       
+            </group>
+            </group>
+            <group>
+            <field name="equipos" widget="many2many" domain="[('cliente', '=', cliente)]"/>
+            <field name="garantia_asociada" attrs="{'invisible': [('estado_equipo','!=', 'Garantia')]}"/>
+            <field name="poliza_asociada" attrs="{'invisible': [('estado_equipo','!=', 'Poliza')]}" />
+            <field name="observaciones"/>
+            <field name="falla" attrs="{'invisible': [('visita','!=', 'Ordinaria')]}"/>
+            <field name="razon_cancelacion"/>
+            </group>
+          </page>
+            <page name='servicios_resultado' string='Resultado'>
+            <group>
+            <field name="responsable"/>
+            <field name="resultado"/>
+            <field name="comentarios"/>
+            <field name="firma1" widget="signature"/>
+            </group>
+          </page>
+        </notebook>
+      </sheet>
+        </form>
+      </field>
+    </record>
+
+    
+
+    <record id="view_itriplee_servicio_tree" model="ir.ui.view">
+      <field name="name">view.itriplee.servicio.tree</field>
+      <field name="model">itriplee.servicio</field>
+      <field name="arch" type="xml">
+        <tree string="Servicio Tree">
+          <field name="cliente"/>
+          <field name="visita"/>
+          <field name="estado"/>
+          <field name="estado_equipo"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="view_itriplee_servicio_calendar" model="ir.ui.view">
+      <field name="name">view.itriplee.servicio.calendar</field>
+      <field name="model">itriplee.servicio</field>
+      <field name="priority" eval="2"/>
+      <field name="arch" type="xml">
+        <calendar string="Servicio Calendar" date_start="visita" color="tecnico">
+          <field name="tecnico"/>
+          <field name="cliente"/>
+        </calendar>
+      </field>
+    </record>
+
+    <record id="action_itriplee_servicio_view" model="ir.actions.act_window">
+      <field name="name">Itriplee Servicio</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">itriplee.servicio</field>
+      <field name="view_mode">calendar,tree,form</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Servicios Itriplee
+        </p>
+        <p>
+          Presiona Crear para agregar un nuevo Servicio
+        </p>
+      </field>
+    </record>
+
+    <menuitem id="menu_itriplee_servicio_root" name="Servicios" sequence="10"/>
+    <menuitem id="menu_itriplee_servicio_categ" name="Servicios" parent="menu_itriplee_servicio_root" sequence="0"/>
+    <menuitem id="menu_itriplee_servicio_action" name="Servicios" parent="menu_itriplee_servicio_categ" action="action_itriplee_servicio_view" sequence="0"/>
+
+  </data>
+</odoo>

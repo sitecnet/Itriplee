@@ -38,8 +38,8 @@
         'views/garantias.xml',
         'views/equipos.xml',      
         'views/heredado.xml',
-        'report/cotizaciones_template.xml',
-        'report/cotizaciones_report.xml'
+        'report/cotizaciones_report.xml',
+        'report/cotizaciones_template.xml',        
         ],
     # only loaded in demonstration mode
     'demo': [

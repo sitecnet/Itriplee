@@ -34,7 +34,7 @@
         <div class="header">
             <div class="row">
                 <div class="col-xs-12 text-right align-middle">
-                    <img style="float:left" src='/itriplee/static/src/img/logo.jpg' width="300" height="94"/>
+                    <img style="float:left" src='/Itriplee/static/src/img/logo.jpg' width="300" height="94"/>
                     <div class="content-heading text-middle"> <h4>      Ciudad de Mexico <span t-field="o.fecha"/></h4></div>
                 </div>
             </div>

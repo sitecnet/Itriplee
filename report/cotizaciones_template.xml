@@ -29,7 +29,7 @@
         </t>
 
     </template>
-    <template id="internal_layout">
+    <template id="itriplee.internal_layout">
         <!-- Multicompany -->
         <div class="header">
             <div class="row">

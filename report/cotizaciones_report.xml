@@ -6,7 +6,4 @@
             report_type="qweb-pdf"
             name="itriplee.cotizaciones_template"
             file="itriplee.cotizaciones_template"/>
-
-
-
 </odoo>

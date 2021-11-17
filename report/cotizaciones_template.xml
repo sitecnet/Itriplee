@@ -4,24 +4,24 @@
     <template id="cotizaciones_template">
           <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
-                <t t-call="itriplee.internal_layout">
+                <t t-call="Itriplee.internal_layout">
                     <!--<div class="header">
                         <img src='/itriplee/static/src/img/logo.jpg' width="100" height="100"/>
                     </div>
                     <div class="page"> -->
                     <t t-if="o.tipo == 'catalogo'">
-                        <t t-call="itriplee.contenido1">
+                        <t t-call="Itriplee.contenido1">
                         </t>
                         </t>
                     <t t-if="o.tipo == 'otro'">
-                    <t t-call="itriplee.contenido2">
+                    <t t-call="Itriplee.contenido2">
                         </t>
                     </t>
                     <t t-if="o.tipo == 'multilinea'">
-                    <t t-call="itriplee.contenido3">
+                    <t t-call="Itriplee.contenido3">
                         </t>
                     </t>
-                    <t t-call="itriplee.custom_footer">
+                    <t t-call="Itriplee.custom_footer">
                         </t>
 
                 </t>

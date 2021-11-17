@@ -4,6 +4,6 @@
             model="itriplee.cotizaciones"
             string="Formato de cotizaciones"
             report_type="qweb-pdf"
-            name="itriplee.cotizaciones_template"
-            file="itriplee.cotizaciones_template"/>
+            name="Itriplee.cotizaciones_template"
+            file="Itriplee.cotizaciones_template"/>
 </odoo>

@@ -133,6 +133,14 @@
       <field name="model">itriplee.movimientos</field>
       <field name="arch" type="xml">
         <form string="Movimientos">
+        <header>
+            <button name="button_recibir" string="Recibir" class="oe_highlight" type="object"/>
+            <button name="button_enviar" string="Enviar" class="oe_highlight" type="object"/>
+            <button name="button_retornar" string="Retornar" class="oe_highlight" type="object"/>
+            <button name="button_salida" string="Liberar" class="oe_highlight" type="object"/>
+            <button name="button_cancelar" string="Cancelar" type="object"/>
+            <field name="estado" widget="statusbar" statusbar_visible="solicitada,atrasada,recibida,cancelada"/>
+          </header>
           <sheet>
           	<group>
               <field name="name"/>

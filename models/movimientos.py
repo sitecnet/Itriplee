@@ -7,6 +7,12 @@ class movimientos(models.Model):
     _rec_name = 'name'
     
     name = fields.Char('Numero automatico consecutivo')
+    estado = fields.Selection([
+        ("solicitada","Programada"),
+        ("recibida","Recibida"),
+        ("atrasada","Atrasada"),
+        ("cancelada","Cancelada"),
+        ], 'Estado del movimiento', default='solicitada')
     tipo = fields.Selection([
         ("entrada","Entrada"),
         ("salida","Salida"),
@@ -14,8 +20,19 @@ class movimientos(models.Model):
         ("stock","Cantidad Inicial")
         ], 'Tipo de Movimiento')
     documento = fields.Char('Documento de entrada')
-    fecha = fields.Datetime('Fecha de Movimiento')
+    fecha = fields.Date('Fecha de Movimiento')
     productos = fields.One2many('itriplee.movimientos.linea', 'producto', string='Productos')
+
+    @api.model
+    def button_recibir(self, vals):
+        res = super(movimientos, self).create(vals)
+        movimiento = self.env['itriplee.stock.series']
+        for linea in res.lineas:
+            movimiento.create({
+                'name': linea.productos.series.series_id,
+                'documento': linea.documento,
+            })
+        return res
 
 
 class lineas_movimientos(models.Model):

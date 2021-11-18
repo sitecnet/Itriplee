@@ -145,7 +145,7 @@
                     <field name="movimiento_id"/>
                     <field name="cantidad"/>
                     <field name="producto"/>
-                    <field name="serie" widget="many2many_tags"/>
+                    <field name="series" widget="many2many_tags"/>
                 </tree>
             </field>
           </sheet>

@@ -27,7 +27,7 @@ class series(models.Model):
     _name = 'itriplee.stock.series'
     _rec_name = 'name'
 
-    name = fields.Char('Numero de Serie', required=True)
+    name = fields.Char('Numero de Serie')
     estado = fields.Selection(AVAILABLE_STATES, 'Estado', default='reservado')
     producto = fields.Many2one('itriplee.catalogo',) #hay que hacerlo automatico
     reparado = fields.Boolean('Reparada', default=False)

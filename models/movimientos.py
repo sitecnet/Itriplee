@@ -27,9 +27,9 @@ class movimientos(models.Model):
     def button_recibir(self, vals):
         res = super(movimientos, self).create(vals)
         movimiento = self.env['itriplee.stock.series']
-        for linea in res.lineas:
+        for linea in res.productos:
             movimiento.create({
-                'name': "5555",
+                'name': linea.series.series_id,
                 'documento': linea.documento
             })
         return res
@@ -41,7 +41,7 @@ class lineas_movimientos(models.Model):
 
     movimiento_id = fields.Many2one('itriplee.movimientos', string='Movimiento')
     cantidad = fields.Char('Cantidad')
-    producto = fields.Many2one('itriplee.catalogo', required=True)
+    producto = fields.Many2one('itriplee.catalogo')
     series = fields.Many2many('itriplee.stock.series',
                               'movimiento_series_rel',
                               'movimientos_id',

@@ -10,7 +10,7 @@ class movimientos(models.Model):
     tipo = fields.Selection([
         ("entrada","Entrada"),
         ("salida","Salida"),
-        ("apartado","Apartado")
+        ("apartado","Apartado"),
         ("stock","Cantidad Inicial")
         ], 'Tipo de Movimiento')
     documento = fields.Char('Documento de entrada')

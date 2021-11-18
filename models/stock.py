@@ -28,9 +28,9 @@ class series(models.Model):
     _rec_name = 'name'
 
     name = fields.Char('Numero de Serie', required=True)
-    estado = fields.Selection(AVAILABLE_STATES, 'Estado')
-    producto = fields.Many2one('itriplee.catalogo', required=True) #hay que hacerlo automatico
-    reparado = fields.Boolean('Reparada')
+    estado = fields.Selection(AVAILABLE_STATES, 'Estado', default='reservado')
+    producto = fields.Many2one('itriplee.catalogo',) #hay que hacerlo automatico
+    reparado = fields.Boolean('Reparada', default='false')
     documento = fields.Char('No. de documento de entrada')
     #servicio = fields.Many2one()
     movimientos = fields.Many2many('itriplee.movimientos.linea',

@@ -138,10 +138,17 @@
               <field name="name"/>
               <field name="tipo"/>
               <field name="documento"/>
-              <field name="fecha"/>
+              <field name="fecha"/>              
             </group>
+            <field name="productos">
+                <tree string="Productos" editable="bottom">
+                    <field name="movimiento_id"/>
+                    <field name="cantidad"/>
+                    <field name="producto"/>
+                    <field name="serie" widget="many2many_tags"/>
+                </tree>
+            </field>
           </sheet>
-          <field name="productos"/>
         </form>
       </field>
     </record>

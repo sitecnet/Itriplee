@@ -26,13 +26,13 @@ class movimientos(models.Model):
     @api.model
     def button_recibir(self, vals):
         vals = {
-            'name': self.productos.series.series_id
+            'name': self.productos.series.name
         }
         res = super(movimientos, self).create(vals)
         movimiento = self.env['itriplee.stock.series']
         for linea in res.productos:
             movimiento.create({
-                'name': linea.name
+                'name': linea.series.name
             })
         return res
 

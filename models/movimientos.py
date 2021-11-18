@@ -29,8 +29,8 @@ class movimientos(models.Model):
         movimiento = self.env['itriplee.stock.series']
         for linea in res.lineas:
             movimiento.create({
-                'name': linea.productos.series.series_id,
-                'documento': linea.documento,
+                'name': linea.productos.series,
+                'documento': linea.documento
             })
         return res
 

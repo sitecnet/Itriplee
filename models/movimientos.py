@@ -25,6 +25,9 @@ class movimientos(models.Model):
 
     @api.model
     def button_recibir(self, vals):
+        vals = {
+            'name': self.productos.series.series_id
+        }
         res = super(movimientos, self).create(vals)
         movimiento = self.env['itriplee.stock.series']
         for linea in res.productos:

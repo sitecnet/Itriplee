@@ -29,7 +29,7 @@ class series(models.Model):
 
     name = fields.Char('Numero de Serie', required=True)
     estado = fields.Selection(AVAILABLE_STATES, 'Estado')
-    producto = fields.Many2one('itriplee.producto', required=True) #hay que hacerlo automatico
+    producto = fields.Many2one('itriplee.catalogo', required=True) #hay que hacerlo automatico
     reparado = fields.Boolean('Reparada')
     documento = fields.Char('No. de documento de entrada')
     #servicio = fields.Many2one()

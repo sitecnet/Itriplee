@@ -44,12 +44,19 @@
       </field>
     </record>
 
-    <record id="action_itriplee_productos_view" model="ir.actions.act_window.view">
-    <field name="act_window_id" ref="action_all_customers" />
+        <act_window id="action_itriplee_productos_view"
+        name="Itriplee Productos"
+        res_model="itriplee.catalogo"
+        view_mode="list,form"
+        limit="80"
+        />
+
+
+    <record id="action_itriplee_productos_view_form" model="ir.actions.act_window.view">
+    <field name="act_window_id" ref="action_itriplee_productos_view" />
     <field name="view_id" ref="view_itriplee_almacen_productos_form"/>
     <field name="view_mode">form</field>
     <field name="sequence">70</field>
-      <field name="name">Itriplee Productos</field>
       <field name="help" type="html">
         <p class="oe_view_nocontent_create">
           Actividades

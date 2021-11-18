@@ -21,7 +21,7 @@
     # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
     # for the full list
     'category': 'Produccion',
-    'version': '1.5',
+    'version': '2.0',
 
     # any module necessary for this one to work correctly
     'depends': ['base','contacts', 'base_setup', 'web_google_maps','decimal_precision'],
@@ -38,6 +38,7 @@
         'views/garantias.xml',
         'views/equipos.xml',      
         'views/heredado.xml',
+        'views/almacen.xml',
         'report/cotizaciones_report.xml',
         'report/cotizaciones_template.xml',        
         ],

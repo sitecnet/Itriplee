@@ -1,0 +1,153 @@
+
+<?xml version="1.0" encoding="utf-8"?>
+ <odoo>
+  <data>
+
+<menuitem id="menu_itriplee_almacen_root" name="Almacen" sequence="10"/>
+<menuitem id="menu_itriplee_almacen_almacen" name="Almacen" parent="menu_itriplee_almacen_root" action="action_itriplee_almacen_view" sequence="30"/>
+<menuitem id="menu_itriplee_almacen_productos" name="Productos" parent="menu_itriplee_almacen_root" action="action_itriplee_productos_view" sequence="20"/>
+<menuitem id="menu_itriplee_almacen_movimientos" name="Movimientos" parent="menu_itriplee_almacen_root" action="action_itriplee_movimientos_view" sequence="10"/>
+<menuitem id="menu_itriplee_almacen_configuracion" name="Configuración" parent="menu_itriplee_ventas_root" sequence="40"/>
+
+ <record id="action_itriplee_almacen_view" model="ir.actions.act_window">
+      <field name="name">Itriplee Almacen</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">itriplee.almacen</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Actividades
+        </p>
+        <p>
+          Presiona Crear para agregar una nueva ubicación de Almacen
+        </p>
+      </field>
+    </record>
+
+    <record id="view_itriplee_almacen_form" model="ir.ui.view">
+      <field name="name">view.itriplee.almacen.form</field>
+      <field name="model">itriplee.almacen</field>
+      <field name="arch" type="xml">
+        <form string="Almacen">
+          <sheet>
+          	<group>
+              <field name="name"/>
+              <field name="ubicacion"/>
+            </group>
+            <field name="productos"/>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="view_itriplee_almacen_tree" model="ir.ui.view">
+      <field name="name">view.itriplee.almacen.tree</field>
+      <field name="model">itriplee.almacen</field>
+      <field name="arch" type="xml">
+        <tree string="Almacen Tree">
+          <field name="name"/>
+          <field name="ubicacion"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="action_itriplee_productos_view" model="ir.actions.act_window">
+      <field name="name">Itriplee Productos</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">itriplee.catalogo</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Actividades
+        </p>
+        <p>
+          Presiona Crear un Nuevo Producto
+        </p>
+      </field>
+    </record>
+
+    <record id="view_itriplee_almacen_productos_form" model="ir.ui.view">
+      <field name="name">view.itriplee.almacen.productos.form</field>
+      <field name="model">itriplee.catalogo</field>
+      <field name="arch" type="xml">
+        <form string="Almacen">
+          <sheet>
+          <group>
+          	<group>
+              <field name="name"/>
+              <field name="marca"/>
+              <field name="tipo"/>
+              <field name="imagen"/>
+            </group>
+            <group>
+              <field name="cantidad"/>
+              <field name="reservado"/>
+              <field name="almacen"/>
+              <field name="minimo"/>
+              <field name="cb"/>
+            </group>
+            </group>
+            <field name="series"/>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="view_itriplee_almacen_productos_tree" model="ir.ui.view">
+      <field name="name">view.itriplee.almacen.productos.tree</field>
+      <field name="model">itriplee.catalogo</field>
+      <field name="arch" type="xml">
+        <tree string="name">
+          <field name="cantidad"/>
+          <field name="almacen"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="action_itriplee_movimientos_view" model="ir.actions.act_window">
+      <field name="name">Itriplee Movimientos</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">itriplee.movimientos</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Actividades
+        </p>
+        <p>
+          Presiona Crear para Realizar un movimiento al inventario
+        </p>
+      </field>
+    </record>
+
+    <record id="view_itriplee_almacen_movimientos_form" model="ir.ui.view">
+      <field name="name">view.itriplee.almacen.movimientos.form</field>
+      <field name="model">itriplee.movimientos</field>
+      <field name="arch" type="xml">
+        <form string="Movimientos">
+          <sheet>
+          	<group>
+              <field name="name"/>
+              <field name="tipo"/>
+              <field name="documento"/>
+              <field name="fecha"/>
+          </sheet>
+          <field name="productos"/>
+        </form>
+      </field>
+    </record>
+
+    <record id="view_itriplee_almacen_movimientos_tree" model="ir.ui.view">
+      <field name="name">view.itriplee.almacen.movimientos.tree</field>
+      <field name="model">itriplee.movimientos</field>
+      <field name="arch" type="xml">
+        <tree string="Almacen Tree">
+          <field name="name"/>
+          <field name="tipo"/>
+          <field name="fecha"/>
+        </tree>
+      </field>
+    </record>
+
+
+    </data>
+</odoo>

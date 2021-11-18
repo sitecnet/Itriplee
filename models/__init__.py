@@ -8,4 +8,7 @@ from . import garantias
 from . import polizas
 from . import equipos
 from . import herencias
+from . import almacen
+from . import stock
+from . import movimientos
 #from . import marketing

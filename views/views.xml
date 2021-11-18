@@ -106,7 +106,7 @@
     <act_window id="action_itriplee_catalogo_view"
         name="Itriplee Catalogo"
         res_model="itriplee.catalogo"
-        view_mode="list,form"
+        view_mode="tree,form"
         limit="80"
         />
 

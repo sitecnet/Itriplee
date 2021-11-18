@@ -47,7 +47,7 @@
         <act_window id="action_itriplee_productos_view"
         name="Itriplee Productos"
         res_model="itriplee.catalogo"
-        view_mode="list,form"
+        view_mode="tree,form"
         limit="80"
         />
 
@@ -106,6 +106,7 @@
       <field name="model">itriplee.catalogo</field>
       <field name="arch" type="xml">
         <tree string="name">
+        <field name="name"/>
           <field name="cantidad"/>
           <field name="almacen"/>
         </tree>

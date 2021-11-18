@@ -129,6 +129,7 @@
               <field name="tipo"/>
               <field name="documento"/>
               <field name="fecha"/>
+            </group>
           </sheet>
           <field name="productos"/>
         </form>

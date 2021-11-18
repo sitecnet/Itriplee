@@ -111,10 +111,10 @@
         />
 
     <record id="action_itriplee_catalogo_view_tree" model="ir.actions.act_window.view">
+    <field eval="3" name="sequence"/>
+    <field name="view_mode">tree</field>
     <field name="act_window_id" ref="action_itriplee_catalogo_view" />
     <field name="view_id" ref="view_itriplee_ventas_catalogo_tree"/>
-     <field name="view_mode">tree</field>
-      <field name="sequence">15</field>
       <field name="help" type="html">
         <p class="oe_view_nocontent_create">
           Catalogo Itriplee
@@ -123,6 +123,13 @@
           Presiona Crear para agregar un nuevo producto
         </p>
       </field>
+    </record>
+
+    <record id="action_itriplee_catalogo_view_form" model="ir.actions.act_window.view">
+    <field name="view_mode">form</field>
+    <field name="act_window_id" ref="action_itriplee_catalogo_view" />
+    <field name="view_id" ref="view_itriplee_ventas_catalogo_form"/>
+      <field name="sequence">70</field>
     </record>
 
     <record id="action_itriplee_marca_view" model="ir.actions.act_window">

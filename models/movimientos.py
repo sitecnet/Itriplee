@@ -28,7 +28,7 @@ class movimientos(models.Model):
         for linea in self.productos:
             vals = {
             'name': linea.series.name,
-            'producto': linea.producto,
+            'producto': linea.producto.id,
             'documento': self.documento
             }
             self.env['itriplee.stock.series'].create(vals)

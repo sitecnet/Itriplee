@@ -32,7 +32,7 @@ class series(models.Model):
     producto = fields.Many2one('itriplee.catalogo',) #hay que hacerlo automatico
     reparado = fields.Boolean('Reparada', default=False)
     documento = fields.Char('No. de documento de entrada')
-    movimiento_entrada = fields.Many2one('No. de documento de entrada')
+    movimiento_entrada = fields.Many2one('itriplee.movimientos', 'No. de documento de entrada')
     #servicio = fields.Many2one()
     #movimientos = fields.Many2many('itriplee.movimientos.linea',
      #                         'movimiento_series_rel',

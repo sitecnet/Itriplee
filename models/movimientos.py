@@ -53,7 +53,7 @@ class lineas_movimientos(models.Model):
             values = {}
             values['documento'] = rec.movimiento_id.documento
             values['producto'] = rec.producto
-            values['movimiento_entrada'] = rec.movimiento_id.name
+            values['movimiento_entrada'] = rec.movimiento_id
             terms.append((0, 0, values))
         return terms
 

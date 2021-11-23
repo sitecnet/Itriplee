@@ -23,15 +23,22 @@ class movimientos(models.Model):
     fecha = fields.Date('Fecha de Movimiento')
     productos = fields.One2many('itriplee.movimientos.linea', 'producto', string='Productos')
 
-    @api.model
-    def button_recibir(self, vals):
-        for linea in self.productos:
-            vals = {
-            'name': linea.series.name,
-            'producto': linea.producto.id,
-            'documento': self.documento
-            }
-            self.env['itriplee.stock.series'].create(vals)
+#class LibraryLoanWizard(models.TransientModel):
+#    _name = 'library.loan.wizard'
+#    member_id = fields.Many2one('library.member', string='Member')
+#    book_ids = fields.Many2many('library.book', string='Books')
+
+#    @api.multi
+#    def button_recibir(self):
+#        return {
+#            'name': "Close Support Ticket",
+#            'type': 'ir.actions.act_window',
+#            'view_type': 'form',
+#            'view_mode': 'form',
+#            'res_model': 'website.support.ticket.close',
+#            'context': {'default_ticket_id': self.id},
+#            'target': 'new'
+#        }
 
 
 
@@ -39,11 +46,20 @@ class lineas_movimientos(models.Model):
     _name = 'itriplee.movimientos.linea'
     _rec_name = 'movimiento_id'
 
+    @api.model
+    def _default_values(self):
+        terms = []
+        for rec in self:
+            values = {}
+            values['documento'] = rec.movimiento_id.documento
+            values['producto'] = rec.producto
+            values['movimiento_id'] = rec.movimiento_id.name
+            terms.append((0, 0, values))
+        return terms
+
     movimiento_id = fields.Many2one('itriplee.movimientos', string='Movimiento')
     cantidad = fields.Char('Cantidad')
     producto = fields.Many2one('itriplee.catalogo')
-    series = fields.Many2many('itriplee.stock.series',
-                              'movimiento_series_rel',
-                              'movimientos_id',
-                              'series_id',
-                              string='Serie de entrada')
+    series = fields.One2many('itriplee.stock.series',
+                              'producto',
+                              string='Serie de entrada', default=_default_values)

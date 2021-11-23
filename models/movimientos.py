@@ -21,7 +21,7 @@ class movimientos(models.Model):
         ], 'Tipo de Movimiento')
     documento = fields.Char('Documento de entrada')
     fecha = fields.Date('Fecha de Movimiento')
-    productos = fields.One2many('itriplee.movimientos.linea', 'producto', string='Productos')
+    productos = fields.One2many('itriplee.movimientos.linea', 'movimiento_id', string='Productos')
 
 #class LibraryLoanWizard(models.TransientModel):
 #    _name = 'library.loan.wizard'
@@ -52,7 +52,7 @@ class lineas_movimientos(models.Model):
         for rec in self:
             values = {}
             values['documento'] = rec.movimiento_id.documento
-            values['producto'] = rec.producto
+            #values['producto'] = rec.producto
             values['movimiento_entrada'] = rec.movimiento_id
             terms.append((0, 0, values))
         return terms

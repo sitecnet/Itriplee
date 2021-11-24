@@ -43,23 +43,10 @@ class movimientos(models.Model):
                 }        
                 self.env['itriplee.stock.series'].create(vals)
 
-#class LibraryLoanWizard(models.TransientModel):
-#    _name = 'library.loan.wizard'
-#    member_id = fields.Many2one('library.member', string='Member')
-#    book_ids = fields.Many2many('library.book', string='Books')
-
-#    @api.multi
-#    def button_recibir(self):
-#        return {
-#            'name': "Close Support Ticket",
-#            'type': 'ir.actions.act_window',
-#            'view_type': 'form',
-#            'view_mode': 'form',
-#            'res_model': 'website.support.ticket.close',
-#            'context': {'default_ticket_id': self.id},
-#            'target': 'new'
-#        }
-
+class SeriesWizard(models.TransientModel):
+    _name = 'itriplee.series.wizard'
+    producto = fields.Many2one('itriplee.catalogo', string='Producto')
+    serie = fields.Many2many('itriplee.movimientos.series', string='Series')
 
 
 class lineas_movimientos(models.Model):

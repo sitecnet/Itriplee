@@ -67,7 +67,7 @@ class lineas_movimientos(models.Model):
     _rec_name = 'movimiento_id'
 
     movimiento_id = fields.Many2one('itriplee.movimientos', string='Movimiento')
-    cantidad = fields.Char('Cantidad')
+    cantidad = fields.Integer('Cantidad')
     producto = fields.Many2one('itriplee.catalogo')
     series = fields.One2many('itriplee.movimientos.series', 'movimiento', string='name', ondelete='cascade')
 

@@ -149,11 +149,14 @@
               <field name="fecha"/>              
             </group>
             <field name="productos">
-                <tree string="Productos" editable="bottom">
-                    <field name="movimiento_id"/>
+                <tree string="Cantidades" editable="bottom">
                     <field name="cantidad"/>
                     <field name="producto"/>
-                    <field name="series" widget="many2many_tags"/>
+                </tree>
+              <field name="series">
+                <tree string="Series" editable="bottom">
+                    <field name="name"/>
+                    <field name="series"/>
                 </tree>
             </field>
           </sheet>

@@ -29,7 +29,7 @@
 	  <field name="view_mode">form</field>
     <field name="target">new</field>
     </record> 
-    
+
     <record id="action_itriplee_almacen_view" model="ir.actions.act_window">
       <field name="name">Itriplee Almacen</field>
       <field name="type">ir.actions.act_window</field>
@@ -163,7 +163,7 @@
         <form string="Movimientos">
         <header>
             
-          <button name="%(action_wizard_series)d" string="Open Wizard" class="oe_edit_only" type="action"></button>
+          <button name="%(action_wizard_series)d" string="Open Wizard" class="oe_highlight" type="action"></button>
             <button name="button_recibir" string="Recibir" class="oe_highlight" type="object"/>
             <button name="button_enviar" string="Enviar" class="oe_highlight" type="object"/>
             <button name="button_retornar" string="Retornar" class="oe_highlight" type="object"/>

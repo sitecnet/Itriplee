@@ -134,7 +134,7 @@
       <field name="arch" type="xml">
         <form string="Movimientos">
         <header>
-            <button name="Wizard_series" string="Wizard" class="oe_highlight" type="action"/>
+            <button name="%(itriplee.wizard_series)d" string="Wizard" class="oe_highlight" type="action"/>
             <button name="button_recibir" string="Recibir" class="oe_highlight" type="object"/>
             <button name="button_enviar" string="Enviar" class="oe_highlight" type="object"/>
             <button name="button_retornar" string="Retornar" class="oe_highlight" type="object"/>
@@ -191,7 +191,7 @@
       </field>
     </record>
 
-    <record id="Wizard_series" model="ir.actions.act_window">
+    <record id="wizard_series" model="ir.actions.act_window">
     <field name="name">recibir Wizard</field>
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">itriplee.series.wizard</field>

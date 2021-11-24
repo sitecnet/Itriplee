@@ -27,14 +27,15 @@ class movimientos(models.Model):
     @api.multi
     def button_recibir(self):
         for line in self.productos:
-            vals = {
-                'name': line.name,
-                'estado': 'disponible',
-                'producto': line.producto.id,
-                'documento': self.documento,
-                'movimiento_entrada': line.movimiento_id.id
-            }        
-            self.env['itriplee.stock.series'].create(vals)
+            for productos in line.series:
+                vals = {
+                    'name': productos.name,
+                    'estado': 'disponible',
+                    'producto': line.producto.id,
+                    'documento': self.documento,
+                    'movimiento_entrada': line.movimiento_id.id
+                }        
+                self.env['itriplee.stock.series'].create(vals)
 
 #class LibraryLoanWizard(models.TransientModel):
 #    _name = 'library.loan.wizard'
@@ -62,23 +63,9 @@ class lineas_movimientos(models.Model):
     movimiento_id = fields.Many2one('itriplee.movimientos', string='Movimiento')
     cantidad = fields.Char('Cantidad')
     producto = fields.Many2one('itriplee.catalogo')
-    name = fields.Char('serie')
+    series = fields.One2many('itriplee.movimientos.series', string='name')
 
 class lineas_movimientos_series(models.Model):
     _name = 'itriplee.movimientos.series'
 
-    @api.model
-    def _default_values(self):
-        terms = []
-        for rec in self:
-            values = {}
-            values['documento'] = rec.name.movimiento_id.documento
-            values['producto'] = rec.name.producto
-            values['movimiento_entrada'] = rec.name.movimiento_id
-            terms.append((0, 0, values))
-        return terms
-
-    name = fields.Many2one('itriplee.movimientos')
-    series = fields.One2many('itriplee.stock.series',
-                              'producto',
-                              string='Serie de entrada', default=_default_values)
+    name = fields.Char('Serie')

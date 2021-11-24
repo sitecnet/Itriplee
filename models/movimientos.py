@@ -21,7 +21,7 @@ class movimientos(models.Model):
         ], 'Tipo de Movimiento')
     documento = fields.Char('Documento de entrada')
     fecha = fields.Date('Fecha de Movimiento')
-    productos = fields.One2many('itriplee.movimientos.linea', 'movimiento_id', string='Cantidades')
+    productos = fields.One2many('itriplee.movimientos.linea', 'movimiento_id', string='Cantidades', ondelete='cascade')
     series = fields.One2many('itriplee.movimientos.series', 'name', string='Series')
 
     @api.multi
@@ -63,9 +63,9 @@ class lineas_movimientos(models.Model):
     movimiento_id = fields.Many2one('itriplee.movimientos', string='Movimiento')
     cantidad = fields.Char('Cantidad')
     producto = fields.Many2one('itriplee.catalogo')
-    series = fields.One2many('itriplee.movimientos.series', 'name', string='name')
+    series = fields.One2many('itriplee.movimientos.series', 'name', string='name', ondelete='cascade')
 
 class lineas_movimientos_series(models.Model):
     _name = 'itriplee.movimientos.series'
 
-    name = fields.Char('Serie')
+    name = fields.Char('Serie', ondelete='cascade')

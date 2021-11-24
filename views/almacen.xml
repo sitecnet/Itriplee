@@ -79,13 +79,6 @@
       </field>
     </record>
 
-    <record id="action_itriplee_productos_view_form" model="ir.actions.act_window.view">
-    <field name="view_mode">form</field>
-    <field name="view_id" ref="view_itriplee_almacen_productos_form"/>
-    <field name="act_window_id" ref="action_itriplee_productos_view" />
-    <field name="sequence">15</field>
-    </record>
-
     <record id="view_itriplee_almacen_productos_form" model="ir.ui.view">
       <field name="name">view.itriplee.almacen.productos.form</field>
       <field name="model">itriplee.catalogo</field>
@@ -113,6 +106,12 @@
       </field>
     </record>
 
+    <record id="action_itriplee_productos_view_form" model="ir.actions.act_window.view">
+    <field name="view_mode">form</field>
+    <field name="view_id" ref="view_itriplee_almacen_productos_form"/>
+    <field name="act_window_id" ref="action_itriplee_productos_view" />
+    <field name="sequence">15</field>
+    </record> 
 
     <record id="action_itriplee_movimientos_view" model="ir.actions.act_window">
       <field name="name">Itriplee Movimientos</field>

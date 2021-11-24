@@ -32,7 +32,7 @@ class movimientos(models.Model):
                 'estado': 'disponible',
                 #'producto': line.producto,
                 'documento': self.documento,
-                'movimiento_entrada': self.name
+                'movimiento_entrada': line.movimiento_id
             }        
             self.env['itriplee.stock.series'].create(vals)
 

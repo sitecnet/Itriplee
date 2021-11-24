@@ -150,6 +150,7 @@
             </group>
             <field name="productos">
                 <tree string="Cantidades" editable="bottom">
+                    <field name="name"/>
                     <field name="cantidad"/>
                     <field name="producto"/>
                     <field name="name"/>

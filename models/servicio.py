@@ -66,4 +66,9 @@ class servicio(models.Model):
     comentarios = fields.Text('Comentarios del Técnico')
     firma = fields.Binary('Firma del Cliente')
     firma1 = fields.Binary('Firma del Cliente')
+
+class ServicioWizard(models.TransientModel):
+    _name = 'itriplee.servicio.wizard'
+    producto = fields.Many2one('itriplee.catalogo', string='Producto')
+    cantidad = fields.Integer('cantidad')
 # Falta implementar la calificacion

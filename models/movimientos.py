@@ -24,6 +24,18 @@ class movimientos(models.Model):
     productos = fields.One2many('itriplee.movimientos.linea', 'movimiento_id', string='Cantidades')
     series = fields.One2many('itriplee.movimientos.series', 'name', string='Series')
 
+    @api.multi
+    def button_recibir(self):
+        vals = {
+            'name': self.productos.name,
+            'estado': 'disponible',
+            'producto': self.productos.producto,
+            'documento': self.documento,
+            'movimiento_entrada': self.name
+        }
+        for line in self.productos:
+            self.env['itriplee.stock.series'].create(vals)
+
 #class LibraryLoanWizard(models.TransientModel):
 #    _name = 'library.loan.wizard'
 #    member_id = fields.Many2one('library.member', string='Member')
@@ -50,6 +62,7 @@ class lineas_movimientos(models.Model):
     movimiento_id = fields.Many2one('itriplee.movimientos', string='Movimiento')
     cantidad = fields.Char('Cantidad')
     producto = fields.Many2one('itriplee.catalogo')
+    name = fields.Char('serie')
 
 class lineas_movimientos_series(models.Model):
     _name = 'itriplee.movimientos.series'

@@ -152,6 +152,7 @@
                 <tree string="Cantidades" editable="bottom">
                     <field name="cantidad"/>
                     <field name="producto"/>
+                    <field name="name"/>
                 </tree>              
             </field>
             <field name="series"/>

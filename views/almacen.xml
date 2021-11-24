@@ -154,10 +154,6 @@
                     <field name="producto"/>
                 </tree>
               <field name="series">
-                <tree string="Series" editable="bottom">
-                    <field name="name"/>
-                    <field name="series"/>
-                </tree>
             </field>
           </sheet>
         </form>

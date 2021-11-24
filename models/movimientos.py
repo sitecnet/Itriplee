@@ -30,7 +30,7 @@ class movimientos(models.Model):
             vals = {
                 'name': line.name,
                 'estado': 'disponible',
-                'producto': line.producto,
+                #'producto': line.producto,
                 'documento': self.documento,
                 'movimiento_entrada': self.name
             }        

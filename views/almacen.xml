@@ -153,7 +153,6 @@
                     <field name="movimiento_id"/>
                     <field name="cantidad"/>
                     <field name="producto"/>
-                    <field name="name"/>
                     <field name="series" widget="many2many_tags"/>
                 </tree>              
             </field>            

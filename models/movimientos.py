@@ -26,14 +26,14 @@ class movimientos(models.Model):
 
     @api.multi
     def button_recibir(self):
-        vals = {
-            'name': self.productos.name,
-            'estado': 'disponible',
-            'producto': self.productos.producto,
-            'documento': self.documento,
-            'movimiento_entrada': self.name
-        }
         for line in self.productos:
+            vals = {
+                'name': line.name,
+                'estado': 'disponible',
+                'producto': line.producto,
+                'documento': self.documento,
+                'movimiento_entrada': self.name
+            }        
             self.env['itriplee.stock.series'].create(vals)
 
 #class LibraryLoanWizard(models.TransientModel):

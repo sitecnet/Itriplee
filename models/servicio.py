@@ -71,4 +71,16 @@ class ServicioWizard(models.TransientModel):
     _name = 'itriplee.servicio.wizard'
     producto = fields.Many2one('itriplee.catalogo', string='Producto')
     cantidad = fields.Integer('cantidad')
+
+    @api.multi
+    def button_wizard(self):
+        vals = {
+                'name': "consecutivo12",
+                'estado': 'solicitada',
+                'tipo': 'salida',
+                'productos.producto': self.producto.id,
+                'productos.cantidad': self.cantidad,
+                }        
+        self.env['itriplee.movimientos'].create(vals)
+
 # Falta implementar la calificacion

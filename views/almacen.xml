@@ -134,7 +134,7 @@
       <field name="arch" type="xml">
         <form string="Movimientos">
         <header>
-            <button name="%(itriplee.wizard_series)d" string="Wizard" class="oe_highlight" type="action"/>
+            <button name="%(wizard_series)d" string="Wizard" class="oe_highlight" type="action"/>
             <button name="button_recibir" string="Recibir" class="oe_highlight" type="object"/>
             <button name="button_enviar" string="Enviar" class="oe_highlight" type="object"/>
             <button name="button_retornar" string="Retornar" class="oe_highlight" type="object"/>

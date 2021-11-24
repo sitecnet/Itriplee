@@ -51,6 +51,18 @@
         limit="80"
         />
 
+    <record id="view_itriplee_almacen_productos_tree" model="ir.ui.view">
+      <field name="name">view.itriplee.almacen.productos.tree</field>
+      <field name="model">itriplee.catalogo</field>
+      <field name="arch" type="xml">
+        <tree string="name">
+        <field name="name"/>
+          <field name="cantidad"/>
+          <field name="almacen"/>
+        </tree>
+      </field>
+    </record>
+
 
     <record id="action_itriplee_productos_view_tree" model="ir.actions.act_window.view">
     <field eval="3" name="sequence"/>
@@ -101,17 +113,6 @@
       </field>
     </record>
 
-    <record id="view_itriplee_almacen_productos_tree" model="ir.ui.view">
-      <field name="name">view.itriplee.almacen.productos.tree</field>
-      <field name="model">itriplee.catalogo</field>
-      <field name="arch" type="xml">
-        <tree string="name">
-        <field name="name"/>
-          <field name="cantidad"/>
-          <field name="almacen"/>
-        </tree>
-      </field>
-    </record>
 
     <record id="action_itriplee_movimientos_view" model="ir.actions.act_window">
       <field name="name">Itriplee Movimientos</field>

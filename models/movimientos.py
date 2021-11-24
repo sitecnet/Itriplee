@@ -26,7 +26,13 @@ class movimientos(models.Model):
 
     @api.multi
     def button_recibir(self):
+        for rec in self:
+            rec.estado = 'recibida'
         for line in self.productos:
+            total = line.producto.cantidad + line.cantidad
+            line.producto.update({
+                'cantidad': total
+            })
             for productos in line.series:
                 vals = {
                     'name': productos.name,

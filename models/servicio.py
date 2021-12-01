@@ -50,7 +50,7 @@ class servicio(models.Model):
     modelo_transicion = fields.Char('Modelo Version anterior')
     garantia_asociada = fields.Many2one('itriplee.garantias', 'Garantias')
     poliza_asociada = fields.Many2one('itriplee.polizas', 'Polizas')
-    equipos = fields.One2many('itriplee.equipos', 'name', 'Equipos', ondelete='cascade')
+    equipos = fields.One2many('itriplee.equipos', 'name', 'Equipos')
     observaciones = fields.Text('Observaciones del equipo')
     razon_cancelacion = fields.Text('Razon de Cancelación')
     falla = fields.Text('Falla Reportada')

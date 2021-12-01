@@ -11,8 +11,13 @@
     	<field name="arch" type="xml">
         <form string="Wizard Form">
         <group>
-          <field name="producto"/>
-          <field name="serie" widget="many2many_tags"/>
+          <field name="productos">
+                <tree string="Cantidades" editable="bottom">
+                    <field name="movimiento_id"/>
+                    <field name="cantidad"/>
+                    <field name="producto"/>
+                    <field name="series" widget="many2many_tags"/>
+                </tree> 
           </group>
           <footer>
            <button name="button_wizard" string="Wizard" class="btn-primary" type="object"/>

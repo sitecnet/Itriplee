@@ -18,6 +18,7 @@
                     <field name="producto"/>
                     <field name="series" widget="many2many_tags"/>
                 </tree> 
+                </field>
           </group>
           <footer>
            <button name="button_wizard" string="Wizard" class="btn-primary" type="object"/>

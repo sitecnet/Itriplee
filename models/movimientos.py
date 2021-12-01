@@ -52,7 +52,7 @@ class SeriesWizard(models.TransientModel):
     def lineas(self):
         result = super(SeriesWizard, self).lineas()
         invoice_obj = self.env['itriplee.movimientos'].browse(self._context.get('active_id'))
-        invoice_obj.productos = self.series
+        invoice_obj.productos = self.productos
         return result
 
 class lineas_movimientos(models.Model):

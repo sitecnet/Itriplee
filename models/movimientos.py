@@ -53,13 +53,14 @@ class SeriesWizard(models.TransientModel):
         rec = super(SeriesWizard, self).default_get(fields)        
         product_line = []        
         active_obj = self.env['itriplee.movimientos'].browse(self._context.get('active_ids'))        
-        for line in active_obj:            
-            product_line.append((0, 0, {                            
-            'cantidad': line.cantidad,
-            'producto': line.producto.id,     
-            }))        
-            rec['productos'] = product_line        
-            return rec    
+        for producto in active_obj:
+            for line in producto.productos:
+                product_line.append((0, 0, {                            
+                'cantidad': line.cantidad,
+                'producto': line.producto.id,     
+                }))        
+                rec['productos'] = product_line        
+                return rec    
 
 class lineas_movimientos(models.Model):
     _name = 'itriplee.movimientos.linea'

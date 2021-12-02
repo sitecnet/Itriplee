@@ -48,12 +48,18 @@ class SeriesWizard(models.TransientModel):
 
     productos = fields.One2many('itriplee.movimientos.linea', 'movimiento_id', string='Cantidades', ondelete='cascade')
 
-    @api.multi
-    def lineas(self):
-        result = super(SeriesWizard, self).productos()
-        invoice_obj = self.env['itriplee.movimientos'].browse(self._context.get('active_id'))
-        invoice_obj.productos = self.productos
-        return result
+    @api.model    
+    def default_get(self, fields):        
+        rec = super(SeriesWizard, self).default_get(fields)        
+        product_line = []        
+        active_obj = self.env['active.model'].browse(self._context.get('active_ids'))        
+        for line in active_obj:            
+            product_line.append((0, 0, {                
+            'name': line.name,              
+            'producto': line.producto.id,           
+            }))        
+            rec['No'] = product_line        
+            return rec    
 
 class lineas_movimientos(models.Model):
     _name = 'itriplee.movimientos.linea'

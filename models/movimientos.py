@@ -57,7 +57,8 @@ class SeriesWizard(models.TransientModel):
             for line in producto.productos:
                 product_line.append((0, 0, {                            
                 'cantidad': line.cantidad,
-                'producto': line.producto.id,     
+                'producto': line.producto.id,
+                'movimiento_id': line.movimiento_id.id,
                 }))        
                 rec['productos'] = product_line        
                 return rec    

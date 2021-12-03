@@ -60,7 +60,7 @@ class SeriesWizard(models.TransientModel):
             'producto': producto.producto.id,                
             }))        
             rec['productos'] = product_line        
-            return rec   
+        return rec   
 
      
 class lineasWizard(models.TransientModel):

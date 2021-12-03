@@ -64,11 +64,11 @@ class SeriesWizard(models.TransientModel):
         return rec
         
     @api.multi
-    def button_wizard(self):
-        ids = super(SeriesWizard, self).default_get(fields)
-        for rec in ids:
+    def button_wizard(self, fields):
+        recs = super(SeriesWizard, self).default_get(fields)
+        for rec in recs:
             rec.estado = 'recibida'
-        for line in ids.productos:
+        for line in recs.productos:
             total = line.producto.cantidad + line.cantidad
             line.producto.update({
                 'cantidad': total

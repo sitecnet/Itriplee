@@ -16,6 +16,7 @@
                       <field name="producto"/>
                       <field name="cantidad"/>
                       <field name="movimiento_id"/>
+                      <field name="series" widget="many2many_tags"/>
                     </tree> 
                 </field>
           </group>

@@ -60,7 +60,33 @@ class SeriesWizard(models.TransientModel):
             'producto': producto.producto.id,                
             }))        
             rec['productos'] = product_line        
-        return rec   
+        return rec
+        
+    @api.multi
+    def button_wizard(self):
+        ids = super(SeriesWizard, self).default_get(fields)  
+        for rec in ids:
+            rec.estado = 'recibida'
+        for line in ids.productos:
+            total = line.producto.cantidad + line.cantidad
+            line.producto.update({
+                'cantidad': total
+            })
+            for productos in line.series:
+                vals = {
+                    'name': productos.name,
+                    'estado': 'disponible',
+                    'producto': line.producto.id,
+                    'documento': self.documento,
+                    'movimiento_entrada': line.movimiento_id.id
+                }
+                vals2 = {
+                    'name': productos.name,
+                    'movimiento': line.movimiento_id.id
+                }                
+                self.env['itriplee.stock.series'].create(vals)
+                self.env['itriplee.movimientos.series'].create(vals2)    
+                
 
      
 class lineasWizard(models.TransientModel):
@@ -70,6 +96,7 @@ class lineasWizard(models.TransientModel):
     cantidad = fields.Integer('Cantidad')
     producto = fields.Many2one('itriplee.catalogo')
     movimiento_id = fields.Many2one('itriplee.movimientos', string='Movimiento')
+    series = fields.One2many('itriplee.movimientos.series.transient', 'name', string='Series')
 
 class lineas_movimientos(models.Model):
     _name = 'itriplee.movimientos.linea'
@@ -85,3 +112,9 @@ class lineas_movimientos_series(models.Model):
 
     name = fields.Char('Serie', ondelete='cascade')
     movimiento = fields.Many2one('itriplee.movimientos.linea', ondelete='cascade')
+
+class seriesWizard(models.TransientModel):
+    _name = 'itriplee.movimientos.series.transient'
+
+    name = fields.Char('Serie', ondelete='cascade')
+    movimiento = fields.Many2one('itriplee.movimientos.linea.transient', ondelete='cascade')

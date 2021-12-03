@@ -96,7 +96,7 @@ class lineasWizard(models.TransientModel):
     cantidad = fields.Integer('Cantidad')
     producto = fields.Many2one('itriplee.catalogo')
     movimiento_id = fields.Many2one('itriplee.movimientos', string='Movimiento')
-    series = fields.One2many('itriplee.movimientos.series.transient', 'name', string='Series')
+    series = fields.One2many('itriplee.movimientos.series.transient', 'movimiento', string='Series')
 
 class lineas_movimientos(models.Model):
     _name = 'itriplee.movimientos.linea'

@@ -69,6 +69,7 @@ class lineasWizard(models.TransientModel):
     productow = fields.Many2one('itriplee.series.wizard', string='Movimiento')
     cantidad = fields.Integer('Cantidad')
     producto = fields.Many2one('itriplee.catalogo')
+    movimiento_id = fields.Many2one('itriplee.movimientos', string='Movimiento')
 
 class lineas_movimientos(models.Model):
     _name = 'itriplee.movimientos.linea'

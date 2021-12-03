@@ -68,7 +68,7 @@ class SeriesWizard(models.TransientModel):
         recs = super(SeriesWizard, self).default_get(fields)
         for rec in recs:
             rec.estado = 'recibida'
-        for line in recs.productos.ids:
+        for line in self.productos.ids:
             total = line.producto.cantidad + line.cantidad
             line.producto.update({
                 'cantidad': total

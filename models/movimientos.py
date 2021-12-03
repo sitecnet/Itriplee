@@ -50,22 +50,22 @@ class SeriesWizard(models.TransientModel):
 
     @api.model    
     def default_get(self, fields):        
-        rec = super(SeriesWizard, self).default_get(fields)        
-        product_line = []        
+        rec = super(SeriesWizard, self).default_get(fields)
+        product_line = []
         active_obj = self.env['itriplee.movimientos'].browse(self._context.get('active_ids'))        
         for producto in active_obj.productos:
             product_line.append((0, 0, {
-            'movimiento_id': producto.movimiento_id.id,                            
+            'movimiento_id': producto.movimiento_id.id,
             'cantidad': producto.cantidad,
-            'producto': producto.producto.id,      
-            'series': producto.series.id,            
-            }))        
+            'producto': producto.producto.id,
+            'series': producto.series.ids,
+            }))
             rec['productos'] = product_line        
         return rec
         
     @api.multi
     def button_wizard(self):
-        ids = super(SeriesWizard, self).default_get(fields)  
+        ids = super(SeriesWizard, self).default_get(fields)
         for rec in ids:
             rec.estado = 'recibida'
         for line in ids.productos:

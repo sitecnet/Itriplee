@@ -70,7 +70,7 @@ class SeriesWizard(models.TransientModel):
             rec.estado = 'recibida'
         for line in self.productos:
             for record in line.series:    
-                self.env[active_obj.productos.series.ids].write({
+                self.env['active_obj.productos.series'].write({
                         (0,0, {'name': record.name}),
                     })
      

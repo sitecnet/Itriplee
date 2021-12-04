@@ -82,6 +82,9 @@ class SeriesWizard(models.TransientModel):
                     'movimiento_entrada': line.movimiento_id.id
                 }
                 self.env['itriplee.stock.series'].create(vals)
+                active_obj.productos.write({'series': [
+                    (0, 0, {'name': record.name}),
+                ]})
      
 class lineasWizard(models.TransientModel):
     _name = 'itriplee.movimientos.linea.transient'

@@ -68,12 +68,11 @@ class SeriesWizard(models.TransientModel):
         active_obj = self.env['itriplee.movimientos'].browse(self._context.get('active_ids'))
         for rec in active_obj:
             rec.estado = 'recibida'      
-        for value in self:
-            total = value.productos.producto.cantidad + value.cantidad
-            value.productos.producto.update({
+        for line in self.productos:
+            total = line.producto.cantidad + line.cantidad
+            line.producto.update({
                 'cantidad': total
-            }) 
-        for line in self.productos:            
+            })         
             for record in line.series:
                 vals = {
                     'name': record.name,

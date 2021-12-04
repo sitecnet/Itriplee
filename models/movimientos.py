@@ -58,7 +58,7 @@ class SeriesWizard(models.TransientModel):
             'movimiento_id': producto.movimiento_id.id,
             'cantidad': producto.cantidad,
             'producto': producto.producto.id,
-            'series': producto.series.ids,
+            'series': producto.series.ids.name,
             }))
             rec['productos'] = product_line        
         return rec
@@ -68,6 +68,12 @@ class SeriesWizard(models.TransientModel):
         active_obj = self.env['itriplee.movimientos'].browse(self._context.get('active_ids'))
         for rec in active_obj:
             rec.estado = 'recibida'
+        for line in self.productos:
+            for record in line.series:
+                vals = {
+                    'name': record.name,
+                }        
+                self.env[active_obj].write(vals)
      
 class lineasWizard(models.TransientModel):
     _name = 'itriplee.movimientos.linea.transient'

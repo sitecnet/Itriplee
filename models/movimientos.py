@@ -73,7 +73,7 @@ class SeriesWizard(models.TransientModel):
                 vals = {
                     'name': record.name,
                 }        
-                self.env[active_obj.series].write(vals)
+                self.env[active_obj.productos.series].write(vals)
      
 class lineasWizard(models.TransientModel):
     _name = 'itriplee.movimientos.linea.transient'

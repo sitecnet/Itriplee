@@ -64,27 +64,16 @@ class SeriesWizard(models.TransientModel):
         return rec
         
     @api.multi
-    def button_wizard(self, fields):
-        recs = super(SeriesWizard, self).default_get(fields)
-        product_line = []
+    def button_wizard(self):
         active_obj = self.env['itriplee.movimientos'].browse(self._context.get('active_ids'))
         for rec in active_obj:
             rec.estado = 'recibida'
-        for val in active_obj.productos:
-            product_line.append((0, 0, {
-            'movimiento_id': val.movimiento_id.id,
-            'cantidad': val.cantidad,
-            'producto': val.producto.id,
-            'series': val.series.ids,
-            }))
-            val.estado = 'recibida'
-            recs['productos'] = product_line  
         for line in self.productos:
             total = line.producto.cantidad + line.cantidad
             line.producto.update({
                 'cantidad': total
             })         
-            for record in line.series:
+            for record in line.series:                
                 vals = {
                     'name': record.name,
                     'estado': 'disponible',
@@ -93,13 +82,10 @@ class SeriesWizard(models.TransientModel):
                     'movimiento_entrada': line.movimiento_id.id
                 }
                 self.env['itriplee.stock.series'].create(vals)
-                if line.producto.id == product_line.producto.id:                    
+                if line.producto.id == line.producto.id:   #Colocar bien el filtro                 
                     active_obj.productos.write({'series': [
                         (0, 0, {'name': record.name}),
                     ]})
-                    print(product_line)
-            return recs
-        print(product_line)
      
 class lineasWizard(models.TransientModel):
     _name = 'itriplee.movimientos.linea.transient'

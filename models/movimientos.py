@@ -78,7 +78,7 @@ class SeriesWizard(models.TransientModel):
                     'name': record.name,
                     'estado': 'disponible',
                     'producto': line.producto.id,
-                    'documento': self.active_obj.documento,
+                    'documento': active_obj.documento,
                     'movimiento_entrada': line.movimiento_id.id
                 }
                 self.env['itriplee.stock.series'].create(vals)

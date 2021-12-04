@@ -82,7 +82,7 @@ class SeriesWizard(models.TransientModel):
                     'movimiento_entrada': line.movimiento_id.id
                 }
                 self.env['itriplee.stock.series'].create(vals)
-                if self.productos.producto == active_obj.productos.producto:
+                if line.producto.id == line.producto.id:
                     active_obj.productos.write({'series': [
                         (0, 0, {'name': record.name}),
                     ]})

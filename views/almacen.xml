@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
  <odoo>
     <data>
-<!-- Menus-->
+<!-- Series-->
+    <record id="seq_movimientos" model="ir.sequence">
+      <field name="name">Secuencia de Movimientos</field>
+      <field name="code">movimientos</field>
+      <field name="prefix">Mov</field>
+      <field name="padding">4</field>
+      <field name="company_id" eval="False"/>
+    </record>
 
 <record id="view_wizard_itriplee" model="ir.ui.view">
       <field name="name">itriplee.series.wizard.view</field>
@@ -178,11 +185,17 @@
             <field name="estado" widget="statusbar" statusbar_visible="solicitada,atrasada,recibida,cancelada"/>
           </header>
           <sheet>
+          <group>
           	<group>
               <field name="name"/>
               <field name="tipo"/>
               <field name="documento"/>
               <field name="fecha"/>              
+            </group>
+            <group>
+              <field name="servicio"/>
+              <field name="estado_refaccion"/>             
+            </group>
             </group>
             <field name="productos">
                 <tree string="Cantidades" editable="bottom">

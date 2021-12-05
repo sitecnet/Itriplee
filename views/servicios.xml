@@ -10,8 +10,7 @@
     	<field name="arch" type="xml">
         <form string="Wizard Form">
         <group>
-          <field name="producto"/>
-          <field name="cantidad"/>
+          <field name="refacciones"/>
           </group>
           <footer>
            <button name="button_wizard" string="Solicitar" class="btn-primary" type="object"/>
@@ -23,7 +22,7 @@
 
     <record id="action_wizard_servicio" model="ir.actions.act_window">
     <field name="name">Solicitar Refacciones</field>
-    <field name="res_model">itriplee.servicio.wizard</field>
+    <field name="res_model">itriplee.servicio.refacciones</field>
     <field name="view_type">form</field>
 	  <field name="view_mode">form</field>
     <field name="target">new</field>

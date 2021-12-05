@@ -50,7 +50,7 @@ class servicio(models.Model):
     modelo_transicion = fields.Char('Modelo Version anterior')
     garantia_asociada = fields.Many2one('itriplee.garantias', 'Garantias')
     poliza_asociada = fields.Many2one('itriplee.polizas', 'Polizas')
-    equipos = fields.One2many('itriplee.equipos', 'name', 'Equipos')
+    equipos = fields.One2many('itriplee.equipos', 'name', 'Equipos', ondelete='cascade')
     observaciones = fields.Text('Observaciones del equipo')
     razon_cancelacion = fields.Text('Razon de Cancelación')
     falla = fields.Text('Falla Reportada')
@@ -67,20 +67,43 @@ class servicio(models.Model):
     firma = fields.Binary('Firma del Cliente')
     firma1 = fields.Binary('Firma del Cliente')
 
-class ServicioWizard(models.TransientModel):
-    _name = 'itriplee.servicio.wizard'
-    producto = fields.Many2one('itriplee.catalogo', string='Producto')
-    cantidad = fields.Integer('cantidad')
+class servicioRefacciones(models.TransientModel):
+    _name = 'itriplee.servicio.refacciones'
+    refacciones = fields.One2many('itriplee.servicio.refacciones.transient', 'name', string='Refacciones', ondelete='cascade')
 
     @api.multi
     def button_wizard(self):
+        recs = {}
+        active_obj = self.env['itriplee.servicio'].browse(self._context.get('active_ids'))
         vals = {
-                'name': "consecutivo12",
+                'servicio': active_obj.id,
                 'estado': 'solicitada',
-                'tipo': 'salida',
-                'productos.producto': self.producto.id,
-                'productos.cantidad': self.cantidad,
+                'tipo': 'apartado',
+                'productos': recs,
+                'estado_refaccion': self.refacciones.estado,
                 }        
         self.env['itriplee.movimientos'].create(vals)
+        for line in self.refacciones:
+            recs = {
+                'refaccion': line.refaccion.id,
+                'estado': line.estado
+            }
+        return recs
+        
+
+
+class ServicioWizard(models.TransientModel):
+    _name = 'itriplee.servicio.refacciones.transient'
+
+    name = fields.Many2one('itriplee.servicio.refacciones', ondelete='cascade')
+    refaccion = fields.Many2one('itriplee.equipos', 'Refaccion', ondelete='cascade')
+    estado = fields.Selection([
+        ("nueva","Nueva"),
+        ("reparada","Reparada"),
+        ], 'De Preferencia') 
+    
+
+
+
 
 # Falta implementar la calificacion

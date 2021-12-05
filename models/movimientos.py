@@ -6,7 +6,8 @@ class movimientos(models.Model):
     _name = 'itriplee.movimientos'
     _rec_name = 'name'
     
-    name = fields.Char('Numero automatico consecutivo')
+    name = fields.Char(string='ID de Movimiento', readonly=True, index=True,
+                       default=lambda self: ('New'))
     estado = fields.Selection([
         ("solicitada","Programada"),
         ("recibida","Recibida"),
@@ -23,6 +24,13 @@ class movimientos(models.Model):
     fecha = fields.Date('Fecha de Movimiento')
     productos = fields.One2many('itriplee.movimientos.linea', 'movimiento_id', string='Cantidades', ondelete='cascade')
     series = fields.One2many('itriplee.movimientos.series', 'name', string='Series')
+    servicio = fields.Many2one('itriplee.servicio', 'Servicio', ondelete='cascade')
+    
+    @api.model
+    def create(self, vals):
+        vals['name'] = self.env['ir.sequence'].next_by_code('movimientos') or ('New')
+        res = super(movimientos, self).create(vals)
+        return res
 
     @api.multi
     def button_recibir(self):
@@ -82,10 +90,10 @@ class SeriesWizard(models.TransientModel):
                     'movimiento_entrada': line.movimiento_id.id
                 }
                 self.env['itriplee.stock.series'].create(vals)
-                if line.producto.id == line.producto.id:   #Colocar bien el filtro                 
-                    active_obj.productos.write({'series': [
-                        (0, 0, {'name': record.name}),
-                    ]})
+               # if line.producto.id == line.producto.id:   #Colocar bien el filtro                 
+                #    active_obj.productos.write({'series': [
+                 #       (0, 0, {'name': record.name}),
+                  #  ]})
      
 class lineasWizard(models.TransientModel):
     _name = 'itriplee.movimientos.linea.transient'
@@ -104,6 +112,11 @@ class lineas_movimientos(models.Model):
     cantidad = fields.Integer('Cantidad')
     producto = fields.Many2one('itriplee.catalogo')
     series = fields.One2many('itriplee.movimientos.series', 'movimiento', string='name', ondelete='cascade')
+    estado_refaccion = fields.Selection([
+                    ("nueva","Nueva"),
+                    ("reparada","Reparada"),
+                    ], 'De Preferencia')     
+        
 
 class lineas_movimientos_series(models.Model):
     _name = 'itriplee.movimientos.series'

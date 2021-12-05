@@ -81,14 +81,15 @@ class servicioRefacciones(models.TransientModel):
                 'tipo': 'apartado',
                 'productos': recs,
                 'estado_refaccion': self.refacciones.estado,
-                }        
-        self.env['itriplee.movimientos'].create(vals)
+                } 
         for line in self.refacciones:
             recs = {
                 'refaccion': line.refaccion.id,
                 'estado': line.estado
             }
-        return recs
+            return recs       
+        self.env['itriplee.movimientos'].create(vals)
+        
         
 
 

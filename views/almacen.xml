@@ -193,8 +193,7 @@
               <field name="fecha"/>              
             </group>
             <group>
-              <field name="servicio"/>
-              <field name="estado_refaccion"/>             
+              <field name="servicio"/>        
             </group>
             </group>
             <field name="productos">

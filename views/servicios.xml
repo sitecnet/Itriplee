@@ -12,8 +12,8 @@
         <group>
           <field name="refacciones">
           <tree string="Refacciones" editable="bottom">
-                      <field name="refaccion"/>
-                      <field name="estado"/>
+                      <field name="producto"/>
+                      <field name="estado_refaccion"/>
           </tree>
           </field>
           </group>

@@ -96,7 +96,7 @@ class ServicioWizard(models.TransientModel):
     _name = 'itriplee.servicio.refacciones.transient'
 
     name = fields.Many2one('itriplee.servicio.refacciones', ondelete='cascade')
-    refaccion = fields.Many2one('itriplee.equipos', 'Refaccion', ondelete='cascade')
+    refaccion = fields.Many2one('itriplee.catalogo', 'Refaccion', ondelete='cascade')
     estado = fields.Selection([
         ("nueva","Nueva"),
         ("reparada","Reparada"),

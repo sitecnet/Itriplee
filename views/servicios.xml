@@ -10,7 +10,12 @@
     	<field name="arch" type="xml">
         <form string="Wizard Form">
         <group>
-          <field name="refacciones"/>
+          <field name="refacciones">
+          <tree string="Refacciones" editable="bottom">
+                      <field name="refaccion"/>
+                      <field name="estado"/>
+          </tree>
+          </field>
           </group>
           <footer>
            <button name="button_wizard" string="Solicitar" class="btn-primary" type="object"/>

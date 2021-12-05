@@ -77,27 +77,23 @@ class servicioRefacciones(models.TransientModel):
         active_obj = self.env['itriplee.servicio'].browse(self._context.get('active_ids'))
         for line in self.refacciones:
             recs.append((0, 0, {
-                'refaccion': line.refaccion.id,
-                'estado': line.estado
+            'producto': line.producto.id,
+            'estado_refaccion': line.estado_refaccion
             }))
         vals = {
                 'servicio': active_obj.id,
                 'estado': 'solicitada',
                 'tipo': 'apartado',
                 'productos': recs,
-                'estado_refaccion': self.refacciones.estado,
                 }   
-        self.env['itriplee.movimientos'].create(vals)
-        
-        
-
+        self.env['itriplee.movimientos'].create(vals) 
 
 class ServicioWizard(models.TransientModel):
     _name = 'itriplee.servicio.refacciones.transient'
 
     name = fields.Many2one('itriplee.servicio.refacciones', ondelete='cascade')
-    refaccion = fields.Many2one('itriplee.catalogo', 'Refaccion', ondelete='cascade')
-    estado = fields.Selection([
+    producto = fields.Many2one('itriplee.catalogo', 'Refaccion', ondelete='cascade')
+    estado_refaccion = fields.Selection([
         ("nueva","Nueva"),
         ("reparada","Reparada"),
         ], 'De Preferencia') 

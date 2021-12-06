@@ -24,8 +24,7 @@ AVAILABLE_STATES = [
 
 class servicio(models.Model):
     _name = 'itriplee.servicio'
-    _rec_name = 'cliente'
-    
+    _rec_name = 'cliente'    
 
     cliente = fields.Many2one('res.partner', 'Cliente', required=True)
     visita = fields.Datetime('Visita Programada', required=True)
@@ -70,14 +69,18 @@ class servicio(models.Model):
     estado_refacciones = fields.Selection([
     	("disponible","Se pueden solicitar refacciones"),
     	("solicitadas","Refacciones ya solicitadas"),
-    	("liberadas","Las refacciones fueron liberadas")], 
-    	'Estado de las refacciones del servicio', default='disponible')
+    	("liberadas","Las refacciones fueron liberadas")
+        ], 'Estado de las refacciones del servicio', default='disponible')
     refacciones = fields.Many2one('itriplee.movimientos', 'Refacciones Solicitadas')
 
 class servicioRefacciones(models.TransientModel):
     _name = 'itriplee.servicio.refacciones'
 
+    def _default_fecha(self):
+        return fields.Date.context_today(self)
+
     refacciones = fields.One2many('itriplee.servicio.refacciones.transient', 'name', string='Refacciones', ondelete='cascade')
+    fecha = fields.Date('Fecha', default=_default_fecha)
 
     @api.multi
     def button_wizard(self):
@@ -95,7 +98,7 @@ class servicioRefacciones(models.TransientModel):
                 'servicio': active_obj.id,
                 'estado': 'solicitada',
                 'tipo': 'apartado',
-                'fecha': fields.Date.context_today(self),
+                'fecha': self.fecha,
                 'productos': recs,
                 }   
         self.env['itriplee.movimientos'].create(vals) 

@@ -78,7 +78,8 @@ class servicioRefacciones(models.TransientModel):
         for line in self.refacciones:
             recs.append((0, 0, {
             'producto': line.producto.id,
-            'estado_refaccion': line.estado_refaccion
+            'estado_refaccion': line.estado_refaccion,
+            'cantidad': 1,
             }))
         vals = {
                 'servicio': active_obj.id,

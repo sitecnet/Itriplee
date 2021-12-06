@@ -5,6 +5,9 @@ from odoo import models, fields, api
 class movimientos(models.Model):
     _name = 'itriplee.movimientos'
     _rec_name = 'name'
+
+    def _default_fecha(self):
+        return fields.Date.context_today(self)
     
     name = fields.Char(string='ID de Movimiento', readonly=True, index=True,
                        default=lambda self: ('New'))
@@ -21,7 +24,7 @@ class movimientos(models.Model):
         ("stock","Cantidad Inicial")
         ], 'Tipo de Movimiento')
     documento = fields.Char('Documento de entrada')
-    fecha = fields.Date('Fecha de Movimiento')
+    fecha = fields.Date('Fecha', default=_default_fecha)
     productos = fields.One2many('itriplee.movimientos.linea', 'movimiento_id', string='Cantidades', ondelete='cascade')
     series = fields.One2many('itriplee.movimientos.series', 'name', string='Series')
     servicio = fields.Many2one('itriplee.servicio', 'Servicio', ondelete='cascade')

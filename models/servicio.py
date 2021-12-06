@@ -77,11 +77,7 @@ class servicio(models.Model):
 class servicioRefacciones(models.TransientModel):
     _name = 'itriplee.servicio.refacciones'
 
-    def _default_fecha(self):
-        return fields.Date.context_today(self)
-
     refacciones = fields.One2many('itriplee.servicio.refacciones.transient', 'name', string='Refacciones', ondelete='cascade')
-    fecha = fields.Date('Fecha', default=_default_fecha)
 
     @api.multi
     def button_wizard(self):
@@ -99,7 +95,7 @@ class servicioRefacciones(models.TransientModel):
                 'servicio': active_obj.id,
                 'estado': 'solicitada',
                 'tipo': 'apartado',
-                'fecha': self.fecha,
+                'fecha': fields.Date.context_today(self),
                 'productos': recs,
                 }   
         self.env['itriplee.movimientos'].create(vals) 

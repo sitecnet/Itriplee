@@ -85,9 +85,7 @@ class servicioRefacciones(models.TransientModel):
     @api.multi
     def button_wizard(self):
         recs = []
-        active_obj = self.env['itriplee.servicio'].browse(self._context.get('active_ids'))
-        for rec in active_obj:
-            rec.estado_refacciones = 'solicitadas'
+        active_obj = self.env['itriplee.servicio'].browse(self._context.get('active_ids'))        
         for line in self.refacciones:
             recs.append((0, 0, {
             'producto': line.producto.id,
@@ -101,7 +99,12 @@ class servicioRefacciones(models.TransientModel):
                 'fecha': self.fecha,
                 'productos': recs,
                 }   
-        self.env['itriplee.movimientos'].create(vals) 
+        movimiento = self.env['itriplee.movimientos'].create(vals)
+        for rec in active_obj:
+            rec.estado_refacciones = 'solicitadas'
+            rec.refacciones = movimiento
+        return movimiento
+
 
 class ServicioWizard(models.TransientModel):
     _name = 'itriplee.servicio.refacciones.transient'

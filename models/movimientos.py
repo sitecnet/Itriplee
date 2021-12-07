@@ -125,9 +125,9 @@ class SeriesWizard(models.TransientModel):
             line.seriesdisponibles.update({
                 'estado': 'reservado',
             })
-            active_obj.productos.write({'series': 
-            [(0, 0, {'seriesdisponibles': line.seriesdisponibles.id}),
-            ]})
+            active_obj.productos.update(
+                 {'seriesdisponibles': line.seriesdisponibles.id})
+            
 
     @api.multi
     def button_retornar_wizard(self):

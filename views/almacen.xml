@@ -28,6 +28,7 @@
                       domain="[('producto','=', producto)]"/>
                       <field name="series"                      
                       widget="many2many_tags"/>
+                      <field name="regresar"/>
                     </tree> 
                 </field>
           </group>

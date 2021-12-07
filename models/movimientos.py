@@ -67,7 +67,7 @@ class SeriesWizard(models.TransientModel):
         ("atrasada","Atrasada"),
         ("cancelada","Cancelada"),
         ("surtida","Surtida"),
-        ], 'Estado del movimiento', default='programada')
+        ], 'Estado del movimiento', default='programada')    
 
     @api.model    
     def default_get(self, fields):        
@@ -136,8 +136,8 @@ class SeriesWizard(models.TransientModel):
     def button_retornar_wizard(self):
         active_obj = self.env['itriplee.movimientos'].browse(self._context.get('active_ids'))
         for rec in active_obj:
-            rec.estado = 'surtida'
-            rec.servicio.estado_refacciones = 'surtida'
+            rec.estado = 'retornada'
+            rec.servicio.estado_refacciones = 'regresadas'
         for line in self.productos:
             disponible = line.producto.cantidad - line.cantidad
             reservado = line.producto.reservado + line.cantidad
@@ -158,6 +158,7 @@ class lineasWizard(models.TransientModel):
     movimiento_id = fields.Many2one('itriplee.movimientos', string='Movimiento')
     series = fields.One2many('itriplee.movimientos.series.transient', 'movimiento', string='Series')
     seriesdisponibles = fields.Many2one('itriplee.stock.series', string='Series')
+    regresar = fields.Boolean('Regresar al almacen', default=False)
 
 class lineas_movimientos(models.Model):
     _name = 'itriplee.movimientos.linea'

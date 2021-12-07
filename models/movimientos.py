@@ -118,7 +118,7 @@ class SeriesWizard(models.TransientModel):
         for line in self.productos:
             disponible = line.producto.cantidad - line.cantidad
             reservado = line.producto.reservado + line.cantidad
-            serie = line.producto
+            serie = line.producto.id
             line.producto.update({
                 'cantidad': disponible,
                 'reservado': reservado,
@@ -127,7 +127,7 @@ class SeriesWizard(models.TransientModel):
                 'estado': 'reservado',
             })
             if serie == active_obj.productos.producto:
-                active_obj.productos.write(
+                active_obj.productos.update(
                     {'seriesdisponibles': serie})
             
 

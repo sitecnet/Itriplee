@@ -123,7 +123,7 @@ class SeriesWizard(models.TransientModel):
                 'reservado': reservado,
             })
             line.seriesdisponibles.update({
-                'cantidad': 'reservado',
+                'estado': 'reservado',
             })  
      
 class lineasWizard(models.TransientModel):

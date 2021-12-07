@@ -25,10 +25,10 @@
                       <field name="cantidad"/>
                       <field name="movimiento_id"/>
                       <field name="seriesdisponibles"
-                      attrs="{'invisible': [('estado','!=', 'solicitada')]}"
+                      
                       domain="[('producto','=', producto)]"/>
                       <field name="series"
-                      attrs="{'invisible': [('estado','!=', 'programada')]}" 
+                      
                       widget="many2many_tags"/>
                     </tree> 
                 </field>

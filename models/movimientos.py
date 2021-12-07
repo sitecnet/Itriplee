@@ -126,11 +126,11 @@ class SeriesWizard(models.TransientModel):
                 'estado': 'reservado',
             })
             active_obj.productos.write({'series': 
-            [(0, 0, {'seriesdisponibles': line.producto.seriesdisponibles.id}),
+            [(0, 0, {'seriesdisponibles': line.seriesdisponibles.id}),
             ]})
 
     @api.multi
-    def button_retornarr_wizard(self):
+    def button_retornar_wizard(self):
         active_obj = self.env['itriplee.movimientos'].browse(self._context.get('active_ids'))
         for rec in active_obj:
             rec.estado = 'surtida'

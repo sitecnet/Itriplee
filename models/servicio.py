@@ -69,7 +69,8 @@ class servicio(models.Model):
     estado_refacciones = fields.Selection([
     	("disponible","Se pueden solicitar refacciones"),
     	("solicitadas","Refacciones ya solicitadas"),
-    	("liberadas","Las refacciones fueron liberadas")
+    	("surtida","Las refacciones fueron surtidas")
+        ("regresadas","Las refacciones fueron regresadas o vendidas")
         ], 'Estado de las refacciones del servicio', default='disponible')
     refacciones = fields.Many2one('itriplee.movimientos', 'Refacciones Solicitadas')
 

@@ -12,11 +12,13 @@ class movimientos(models.Model):
     name = fields.Char(string='ID de Movimiento', readonly=True, index=True,
                        default=lambda self: ('New'))
     estado = fields.Selection([
-        ("solicitada","Programada"),
+        ("programada","Programada"),
+        ("solicitada","Solicitada"),
         ("recibida","Recibida"),
         ("atrasada","Atrasada"),
         ("cancelada","Cancelada"),
-        ], 'Estado del movimiento', default='solicitada')
+        ("surtida","Surtida"),
+        ], 'Estado del movimiento', default='programada')
     tipo = fields.Selection([
         ("entrada","Entrada"),
         ("salida","Salida"),
@@ -70,6 +72,7 @@ class SeriesWizard(models.TransientModel):
             'cantidad': producto.cantidad,
             'producto': producto.producto.id,
             'series': producto.series.ids,
+            'seriesdisponibles': producto.seriesdisponibles.id,
             }))
             rec['productos'] = product_line        
         return rec
@@ -97,6 +100,23 @@ class SeriesWizard(models.TransientModel):
                 #    active_obj.productos.write({'series': [
                  #       (0, 0, {'name': record.name}),
                   #  ]})
+
+    @api.multi
+    def button_surtir_wizard(self):
+        active_obj = self.env['itriplee.movimientos'].browse(self._context.get('active_ids'))
+        for rec in active_obj:
+            rec.estado = 'surtida'
+            rec.servicio.estado_refacciones = 'surtida'
+        for line in self.productos:
+            disponible = line.producto.cantidad - line.cantidad
+            reservado = line.producto.cantidad + line.cantidad
+            line.producto.update({
+                'cantidad': disponible,
+                'reservado': reservado,
+            })
+            line.seriesdisponibles.update({
+                'cantidad': 'reservado',
+            })  
      
 class lineasWizard(models.TransientModel):
     _name = 'itriplee.movimientos.linea.transient'
@@ -106,6 +126,7 @@ class lineasWizard(models.TransientModel):
     producto = fields.Many2one('itriplee.catalogo')
     movimiento_id = fields.Many2one('itriplee.movimientos', string='Movimiento')
     series = fields.One2many('itriplee.movimientos.series.transient', 'movimiento', string='Series')
+    seriesdisponibles = fields.Many2one('itriplee.stock.series', string='Movimiento')
 
 class lineas_movimientos(models.Model):
     _name = 'itriplee.movimientos.linea'

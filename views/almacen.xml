@@ -23,12 +23,26 @@
                       <field name="producto"/>
                       <field name="cantidad"/>
                       <field name="movimiento_id"/>
-                      <field name="series" widget="many2many_tags"/>
+                      <field name="seriesdisponibles"
+                      attrs="{'invisible': [('estado','!=', 'solicitada')]}"
+                      domain="[('producto','=', producto)]"/>
+                      <field name="series"
+                      attrs="{'invisible': [('estado','!=', 'programada')]}" 
+                      widget="many2many_tags"/>
                     </tree> 
                 </field>
           </group>
           <footer>
-           <button name="button_wizard" string="Wizard" class="btn-primary" type="object"/>
+           <button name="button_wizard" 
+           string="Recibir" 
+           class="btn-primary" 
+           type="object"
+           attrs="{'invisible': [('estado','!=', 'programada')]}" />
+           <button name="button_surtir_wizard" 
+           string="Surtir" 
+           class="btn-primary" 
+           type="object"
+           attrs="{'invisible': [('estado','!=', 'solicitada')]}"/>
             <button string="Cancel" class="btn-secondary" special="cancel"/>
           </footer>
         </form>

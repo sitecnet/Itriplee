@@ -144,6 +144,7 @@ class lineas_movimientos(models.Model):
     cantidad = fields.Integer('Cantidad')
     producto = fields.Many2one('itriplee.catalogo')
     series = fields.One2many('itriplee.movimientos.series', 'movimiento', string='name', ondelete='cascade')
+    seriesdisponibles = fields.Many2one('itriplee.stock.series', string='Movimiento')
     estado_refaccion = fields.Selection([
                     ("nueva","Nueva"),
                     ("reparada","Reparada"),

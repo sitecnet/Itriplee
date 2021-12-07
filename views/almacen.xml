@@ -43,7 +43,13 @@
            class="btn-primary" 
            type="object"
            attrs="{'invisible': [('estado','!=', 'solicitada')]}"/>
+           <button name="button_retornar_wizard" 
+           string="Siguiente" 
+           class="btn-primary" 
+           type="object"
+           attrs="{'invisible': [('estado','!=', 'surtida')]}"/>
             <button string="Cancel" class="btn-secondary" special="cancel"/>
+            <button string="Cancel" class="btn-secondary" special="cancel"/>            
           </footer>
         </form>
       </field>

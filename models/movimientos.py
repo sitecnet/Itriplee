@@ -129,7 +129,7 @@ class SeriesWizard(models.TransientModel):
             for prod in active_obj.productos:
                 if serie == prod.producto:
                     prod.write(
-                    {'seriesdisponibles': line.seriesdiponibles})
+                    {'seriesdisponibles': line.seriesdisponibles})
             
 
     @api.multi

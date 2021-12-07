@@ -124,6 +124,26 @@ class SeriesWizard(models.TransientModel):
             })
             line.seriesdisponibles.update({
                 'estado': 'reservado',
+            })
+            active_obj.productos.write({'series': 
+            [(0, 0, {'seriesdisponibles': line.producto.seriesdisponibles.id}),
+            ]})
+
+    @api.multi
+    def button_retornarr_wizard(self):
+        active_obj = self.env['itriplee.movimientos'].browse(self._context.get('active_ids'))
+        for rec in active_obj:
+            rec.estado = 'surtida'
+            rec.servicio.estado_refacciones = 'surtida'
+        for line in self.productos:
+            disponible = line.producto.cantidad - line.cantidad
+            reservado = line.producto.reservado + line.cantidad
+            line.producto.update({
+                'cantidad': disponible,
+                'reservado': reservado,
+            })
+            line.seriesdisponibles.update({
+                'estado': 'reservado',
             })  
      
 class lineasWizard(models.TransientModel):
@@ -134,7 +154,7 @@ class lineasWizard(models.TransientModel):
     producto = fields.Many2one('itriplee.catalogo')
     movimiento_id = fields.Many2one('itriplee.movimientos', string='Movimiento')
     series = fields.One2many('itriplee.movimientos.series.transient', 'movimiento', string='Series')
-    seriesdisponibles = fields.Many2one('itriplee.stock.series', string='Movimiento')
+    seriesdisponibles = fields.Many2one('itriplee.stock.series', string='Series')
 
 class lineas_movimientos(models.Model):
     _name = 'itriplee.movimientos.linea'
@@ -144,7 +164,7 @@ class lineas_movimientos(models.Model):
     cantidad = fields.Integer('Cantidad')
     producto = fields.Many2one('itriplee.catalogo')
     series = fields.One2many('itriplee.movimientos.series', 'movimiento', string='name', ondelete='cascade')
-    seriesdisponibles = fields.Many2one('itriplee.stock.series', string='Movimiento')
+    seriesdisponibles = fields.Many2one('itriplee.stock.series', string='Series')
     estado_refaccion = fields.Selection([
                     ("nueva","Nueva"),
                     ("reparada","Reparada"),

@@ -24,11 +24,9 @@
                       <field name="producto"/>
                       <field name="cantidad"/>
                       <field name="movimiento_id"/>
-                      <field name="seriesdisponibles"
-                      
+                      <field name="seriesdisponibles"                      
                       domain="[('producto','=', producto)]"/>
-                      <field name="series"
-                      
+                      <field name="series"                      
                       widget="many2many_tags"/>
                     </tree> 
                 </field>
@@ -216,6 +214,8 @@
                     <field name="movimiento_id"/>
                     <field name="cantidad"/>
                     <field name="producto"/>
+                    <field name="seriesdisponibles"                      
+                      domain="[('producto','=', producto)]"/>
                     <field name="series" widget="many2many_tags"/>
                 </tree>              
             </field>            

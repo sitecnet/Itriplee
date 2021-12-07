@@ -125,7 +125,7 @@ class SeriesWizard(models.TransientModel):
             line.seriesdisponibles.update({
                 'estado': 'reservado',
             })
-            if line.seriesdisponibles.id == active_obj.productos.producto.id:
+            if line.seriesdisponibles.producto.id == line.producto.id:
                 active_obj.productos.update(
                     {'seriesdisponibles': line.seriesdisponibles.id})
             

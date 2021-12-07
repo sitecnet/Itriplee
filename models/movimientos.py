@@ -117,7 +117,7 @@ class SeriesWizard(models.TransientModel):
             rec.servicio.estado_refacciones = 'surtida'
         for line in self.productos:
             disponible = line.producto.cantidad - line.cantidad
-            reservado = line.producto.cantidad + line.cantidad
+            reservado = line.producto.reservado + line.cantidad
             line.producto.update({
                 'cantidad': disponible,
                 'reservado': reservado,

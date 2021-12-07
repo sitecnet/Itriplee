@@ -128,7 +128,7 @@ class SeriesWizard(models.TransientModel):
             })
             for prod in active_obj.productos:
                 if serie == prod.producto:
-                    prod.write(
+                    prod.update(
                     {'seriesdisponibles': line.seriesdisponibles})
             
 

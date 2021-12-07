@@ -60,6 +60,14 @@ class SeriesWizard(models.TransientModel):
     _name = 'itriplee.series.wizard'
 
     productos = fields.One2many('itriplee.movimientos.linea.transient', 'productow', string='Cantidades', ondelete='cascade')
+    estado = fields.Selection([
+        ("programada","Programada"),
+        ("solicitada","Solicitada"),
+        ("recibida","Recibida"),
+        ("atrasada","Atrasada"),
+        ("cancelada","Cancelada"),
+        ("surtida","Surtida"),
+        ], 'Estado del movimiento', default='programada')
 
     @api.model    
     def default_get(self, fields):        

@@ -127,7 +127,7 @@ class SeriesWizard(models.TransientModel):
                 'estado': 'reservado',
             })
             if serie == active_obj.productos.producto:
-                active_obj.productos.update(
+                active_obj.productos.write(
                     {'seriesdisponibles': serie})
             
 

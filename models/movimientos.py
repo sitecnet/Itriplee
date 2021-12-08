@@ -173,7 +173,7 @@ class SeriesWizard(models.TransientModel):
                 values = {
                     'producto': line.producto.id,
                     'cantidad': 1,
-                    'seriesdisponibles': line.seriesdisponibles
+                    'seriesdisponibles': line.seriesdisponibles.id
                     }
                 mov = self.salientes.create(values)
             return mov

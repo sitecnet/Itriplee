@@ -144,8 +144,8 @@ class SeriesWizard(models.TransientModel):
         active_obj = self.env['itriplee.movimientos'].browse(self._context.get('active_ids'))
         regresadas = []
         salidas = []
+        self.estado = 'retornada'        
         for rec in active_obj:
-            rec.estado = 'retornada'
             rec.servicio.estado_refacciones = 'regresadas'
         for line in self.productos:
             if line.regresar == True:
@@ -177,6 +177,7 @@ class SeriesWizard(models.TransientModel):
                     'seriesdisponibles': line.seriesdisponibles.id
                     }))
                 self.salientes.write(salidas)
+        return {"type": "set_scrollTop"}
             
     def button_retornar2_wizard(self):
         active_obj = self.env['itriplee.movimientos'].browse(self._context.get('active_ids'))

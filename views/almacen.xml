@@ -48,7 +48,6 @@
            class="btn-primary" 
            type="object"
            attrs="{'invisible': [('estado','!=', 'surtida')]}"/>
-            <button string="Cancel" class="btn-secondary" special="cancel"/>
             <button string="Cancel" class="btn-secondary" special="cancel"/>            
           </footer>
         </form>

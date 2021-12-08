@@ -171,12 +171,12 @@ class SeriesWizard(models.TransientModel):
                 } 
                 rec.env['itriplee.movimientos'].create(vals)
             else:
-                self.salientes.create({
+                self.salientes.write({
                     'producto': line.producto.id,
                     'cantidad': 1,
                     'seriesdisponibles': line.seriesdisponibles.id
                     })
-                
+            return   
         return {"type": "set_scrollTop"}
             
     def button_retornar2_wizard(self):

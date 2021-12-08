@@ -18,6 +18,7 @@ class movimientos(models.Model):
         ("atrasada","Atrasada"),
         ("cancelada","Cancelada"),
         ("surtida","Surtida"),
+        ("retornada","Refacciones retornadas"),
         ], 'Estado del movimiento', default='programada')
     tipo = fields.Selection([
         ("entrada","Entrada"),
@@ -68,6 +69,7 @@ class SeriesWizard(models.TransientModel):
         ("recibida","Recibida"),
         ("atrasada","Atrasada"),
         ("cancelada","Cancelada"),
+        ("retornada","Refacciones retornadas"),
         ("surtida","Surtida"),
         ], 'Estado del movimiento', default='programada')
     fecha = fields.Date('Fecha', default=_default_fecha)
@@ -137,7 +139,7 @@ class SeriesWizard(models.TransientModel):
             
 
     @api.multi
-    def button_retornar_wizard(self):
+    def button_retornar1_wizard(self):
         active_obj = self.env['itriplee.movimientos'].browse(self._context.get('active_ids'))
         regresadas = []
         for rec in active_obj:

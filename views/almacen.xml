@@ -22,15 +22,20 @@
           <field name="productos">
                     <tree string="Cantidades" editable="bottom">
                       <field name="producto"/>
-                      <field name="cantidad"/>
-                      <field name="movimiento_id"/>
                       <field name="seriesdisponibles"                      
                       domain="[('producto','=', producto)]"/>
                       <field name="series"                      
-                      widget="many2many_tags"/>
-                      <field name="regresar"/>
+                      widget="many2many_tags"
+                      attrs="{'invisible': [('parent.estado','!=', 'programada')]}"/>
+                      <field name="regresar"
+                      attrs="{'invisible': [('parent.estado','!=', 'surtida')]}"/>
+                      <field name="serie_nueva"
+                       attrs="{'invisible': [('tipo_salida','!=', 'garantia')]}"/>
+                      <field name="factura"
+                       attrs="{'invisible': [('tipo_salida','!=', 'venta')]}"/>
                     </tree> 
                 </field>
+                <!--
           <field name="salientes">
                     <tree string="Cantidades" editable="bottom">
                       <field name="producto"/>
@@ -38,12 +43,10 @@
                       <field name="seriesdisponibles"                      
                       domain="[('producto','=', producto)]"/>
                       <field name="tipo_salida"/>
-                      <field name="serie_nueva"
-                       attrs="{'invisible': [('tipo_salida','!=', 'garantia')]}"/>
-                      <field name="factura"
-                       attrs="{'invisible': [('tipo_salida','!=', 'venta')]}"/>
-                    </tree> 
+                      
+                    </tree>                    
                 </field>
+                 -->
           </group>
           <footer>
            <button name="button_wizard" 

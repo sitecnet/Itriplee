@@ -176,7 +176,7 @@ class SeriesWizard(models.TransientModel):
                     'cantidad': 1,
                     'seriesdisponibles': line.seriesdisponibles.id
                     }))
-                self.salientes.create(recs)  
+                self.salientes.update(recs)  
         return {"type": "set_scrollTop"}
             
     def button_retornar2_wizard(self):

@@ -29,6 +29,8 @@
                       attrs="{'invisible': [('parent.estado','!=', 'programada')]}"/>
                       <field name="regresar"
                       attrs="{'invisible': [('parent.estado','!=', 'surtida')]}"/>
+                      <field name="tipo_salida"
+                      attrs="{'invisible': [('parent.estado','!=', 'retornada')]}"/>
                       <field name="serie_nueva"
                        attrs="{'invisible': [('tipo_salida','!=', 'garantia')]}"/>
                       <field name="factura"

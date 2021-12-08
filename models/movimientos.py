@@ -178,7 +178,7 @@ class SeriesWizard(models.TransientModel):
                     'seriesdisponibles': line.seriesdisponibles.id
                     }))
                     self.salientes.write(salientes)
-        return {"type": "set_scrollTop"}
+            return {"type": "set_scrollTop"}
             
     def button_retornar2_wizard(self):
         active_obj = self.env['itriplee.movimientos'].browse(self._context.get('active_ids'))

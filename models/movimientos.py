@@ -62,6 +62,7 @@ class SeriesWizard(models.TransientModel):
 
     def _default_fecha(self):
         return fields.Date.context_today(self)
+
     productos = fields.One2many('itriplee.movimientos.linea.transient', 'productow', string='Cantidades', ondelete='cascade')
     estado = fields.Selection([
         ("programada","Programada"),
@@ -73,7 +74,7 @@ class SeriesWizard(models.TransientModel):
         ("surtida","Surtida"),
         ], 'Estado del movimiento', default='programada')
     fecha = fields.Date('Fecha', default=_default_fecha)
-    salientes = fields.One2many('itriplee.movimientos.linea.transient', 'salientes', string='Equipos por Salir', ondelete='cascade', domain=[('regresar','=',False)])
+    salientes = fields.One2many('itriplee.movimientos.linea.transient', 'productow', string='Equipos por Salir', ondelete='cascade', domain=[('regresar','=',False)])
 
     @api.model    
     def default_get(self, fields):        

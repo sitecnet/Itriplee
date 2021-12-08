@@ -22,22 +22,16 @@
           <field name="productos">
                     <tree string="Cantidades" editable="bottom">
                       <field name="producto"/>
+                      <field name="cantidad"/>
+                      <field name="movimiento_id"/>
                       <field name="seriesdisponibles"                      
                       domain="[('producto','=', producto)]"/>
                       <field name="series"                      
-                      widget="many2many_tags"
-                      attrs="{'column_invisible': [('parent.estado','!=', 'programada')]}"/>
-                      <field name="regresar"
-                      attrs="{'column_invisible': [('parent.estado','!=', 'surtida')]}"/>
-                      <field name="tipo_salida"
-                      attrs="{'column_invisible': [('parent.estado','!=', 'retornada')]}"/>
-                      <field name="serie_nueva"
-                       attrs="{'column_invisible': [('tipo_salida','!=', 'garantia')]}"/>
-                      <field name="factura"
-                       attrs="{'column_invisible': [('tipo_salida','!=', 'venta')]}"/>
+                      widget="many2many_tags"/>
+                      <field name="regresar"/>
                     </tree> 
                 </field>
-                <!--
+
           <field name="salientes">
                     <tree string="Cantidades" editable="bottom">
                       <field name="producto"/>
@@ -45,10 +39,12 @@
                       <field name="seriesdisponibles"                      
                       domain="[('producto','=', producto)]"/>
                       <field name="tipo_salida"/>
-                      
-                    </tree>                    
+                      <field name="serie_nueva"
+                       attrs="{'invisible': [('tipo_salida','!=', 'garantia')]}"/>
+                      <field name="factura"
+                       attrs="{'invisible': [('tipo_salida','!=', 'venta')]}"/>
+                    </tree> 
                 </field>
-                 -->
           </group>
           <footer>
            <button name="button_wizard" 

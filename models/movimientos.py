@@ -141,7 +141,6 @@ class SeriesWizard(models.TransientModel):
 
     @api.multi
     def button_retornar1_wizard(self):
-        sal = (SeriesWizard, self).default_get(fields)
         active_obj = self.env['itriplee.movimientos'].browse(self._context.get('active_ids'))
         regresadas = []
         recs = []
@@ -177,8 +176,7 @@ class SeriesWizard(models.TransientModel):
                     'cantidad': 1,
                     'seriesdisponibles': line.seriesdisponibles.id
                     }))
-                sal['salientes'] = recs      
-            return sal
+                self.salientes.create(recs)  
         return {"type": "set_scrollTop"}
             
     def button_retornar2_wizard(self):

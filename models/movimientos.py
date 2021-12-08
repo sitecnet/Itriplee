@@ -137,7 +137,7 @@ class SeriesWizard(models.TransientModel):
             
 
     @api.multi
-    def button_retornar1_wizard(self):
+    def button_retornar_wizard(self):
         active_obj = self.env['itriplee.movimientos'].browse(self._context.get('active_ids'))
         regresadas = []
         for rec in active_obj:

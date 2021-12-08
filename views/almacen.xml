@@ -41,7 +41,7 @@
                       <field name="serie_nueva"
                        attrs="{'invisible': [('tipo_salida','!=', 'garantia')]}"/>
                       <field name="factura"
-                       attrs="{'invisible': [('tipo_salida','!=', 'garantia')]}"/>
+                       attrs="{'invisible': [('tipo_salida','!=', 'venta')]}"/>
                     </tree> 
                 </field>
           </group>

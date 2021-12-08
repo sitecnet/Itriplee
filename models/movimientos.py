@@ -171,7 +171,7 @@ class SeriesWizard(models.TransientModel):
                 } 
                 rec.env['itriplee.movimientos'].create(vals)
             else:
-                self.salientes.append((0, 0, {
+                self.salientes.create((0, 0, {
                     'producto': line.producto.id,
                     'cantidad': 1,
                     'seriesdisponibles': line.seriesdisponibles.id

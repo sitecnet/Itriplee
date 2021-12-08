@@ -175,7 +175,7 @@ class SeriesWizard(models.TransientModel):
                     'cantidad': 1,
                     'seriesdisponibles': line.seriesdisponibles
                     }
-                mov = self.env['self.salientes'].create(values)
+                mov = self.salientes.create(values)
             return mov
         return {"type": "set_scrollTop"}
             

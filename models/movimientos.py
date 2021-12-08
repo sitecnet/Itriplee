@@ -176,7 +176,6 @@ class SeriesWizard(models.TransientModel):
                     'cantidad': 1,
                     'seriesdisponibles': line.seriesdisponibles.id
                     }))
-                self.estado.update({'estado' : 'retornada'})
                 self.salientes.write(salidas)
             
     def button_retornar2_wizard(self):

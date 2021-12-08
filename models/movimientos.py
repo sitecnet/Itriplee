@@ -59,6 +59,8 @@ class movimientos(models.Model):
 class SeriesWizard(models.TransientModel):
     _name = 'itriplee.series.wizard'
 
+    def _default_fecha(self):
+        return fields.Date.context_today(self)
     productos = fields.One2many('itriplee.movimientos.linea.transient', 'productow', string='Cantidades', ondelete='cascade')
     estado = fields.Selection([
         ("programada","Programada"),
@@ -67,17 +69,15 @@ class SeriesWizard(models.TransientModel):
         ("atrasada","Atrasada"),
         ("cancelada","Cancelada"),
         ("surtida","Surtida"),
-        ], 'Estado del movimiento', default='programada')    
+        ], 'Estado del movimiento', default='programada')
+    fecha = fields.Date('Fecha', default=_default_fecha)
 
     @api.model    
     def default_get(self, fields):        
         rec = super(SeriesWizard, self).default_get(fields)
         product_line = []
-        active_obj = self.env['itriplee.movimientos'].browse(self._context.get('active_ids'))
-        for value in active_obj:
-            value.update({
-                'estado': value.estado
-            })         
+        active_obj = self.env['itriplee.movimientos'].browse(self._context.get('active_ids')) 
+        self.update({'estado' : active_obj.estado})
         for producto in active_obj.productos:
             product_line.append((0, 0, {
             'movimiento_id': producto.movimiento_id.id,
@@ -137,22 +137,38 @@ class SeriesWizard(models.TransientModel):
             
 
     @api.multi
-    def button_retornar_wizard(self):
+    def button_retornar1_wizard(self):
         active_obj = self.env['itriplee.movimientos'].browse(self._context.get('active_ids'))
+        regresadas = []
         for rec in active_obj:
             rec.estado = 'retornada'
             rec.servicio.estado_refacciones = 'regresadas'
         for line in self.productos:
-            disponible = line.producto.cantidad - line.cantidad
-            reservado = line.producto.reservado + line.cantidad
-            line.producto.update({
-                'cantidad': disponible,
-                'reservado': reservado,
-            })
-            line.seriesdisponibles.update({
-                'estado': 'reservado',
-            })  
-     
+            if line.regresar == True:
+                disponible = line.producto.cantidad + line.cantidad
+                reservado = line.producto.reservado - line.cantidad
+                line.producto.update({
+                    'cantidad': disponible,
+                    'reservado': reservado,
+                })
+                line.seriesdisponibles.update({
+                    'estado': 'disponible',
+                }) 
+                regresadas.append((0, 0, {
+                    'producto': line.producto.id,
+                    'estado_refaccion': line.estado_refaccion,
+                    'cantidad': 1,
+                    'seriesdisponibles': line.seriesdisponibles
+                    }))
+                vals = {
+                'estado': 'solicitada',
+                'tipo': 'entrada',
+                'fecha': self.fecha,
+                'productos': regresadas,
+                } 
+                self.env['itriplee.movimientos'].create(vals)
+
+
 class lineasWizard(models.TransientModel):
     _name = 'itriplee.movimientos.linea.transient'
 

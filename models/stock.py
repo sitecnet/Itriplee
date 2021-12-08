@@ -8,6 +8,7 @@ AVAILABLE_STATES = [
     ('reservado', 'Reservado'),
     ('garantia', 'En Garantia'),
     ('Instalado', 'Instalado'),
+    ('vendida', 'Vendida'),
     ]
 
 class stock(models.Model):
@@ -15,6 +16,9 @@ class stock(models.Model):
 
     cantidad = fields.Integer('Cantidad Disponible')
     reservado = fields.Integer('Cantidad Reservada')
+    vendidos = fields.Integer('Vendidos')
+    garantias = fields.Integer('Instalados en garantia')
+    entrega = fields.Integer('Por recibir')
     #programado = fields.Integer('Cantidad', required=True) visualizar el stock entrante
     #atrasado = fields.Integer('Cantidad', required=True) visualizar el stock entrante
     almacen = fields.Many2one('itriplee.almacen', string='Almacen')
@@ -28,7 +32,7 @@ class series(models.Model):
     _rec_name = 'name'
 
     name = fields.Char('Numero de Serie')
-    estado = fields.Selection(AVAILABLE_STATES, 'Estado', default='reservado')
+    estado = fields.Selection(AVAILABLE_STATES, 'Estado', default='disponible')
     producto = fields.Many2one('itriplee.catalogo',) #hay que hacerlo automatico
     reparado = fields.Boolean('Reparada', default=False)
     documento = fields.Char('No. de documento de entrada')

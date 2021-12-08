@@ -31,6 +31,19 @@
                       <field name="regresar"/>
                     </tree> 
                 </field>
+          <field name="salientes">
+                    <tree string="Cantidades" editable="bottom">
+                      <field name="producto"/>
+                      <field name="cantidad"/>
+                      <field name="seriesdisponibles"                      
+                      domain="[('producto','=', producto)]"/>
+                      <field name="tipo_salida"/>
+                      <field name="serie_nueva"
+                       attrs="{'invisible': [('tipo_salida','!=', 'garantia')]}"/>
+                      <field name="factura"
+                       attrs="{'invisible': [('tipo_salida','!=', 'garantia')]}"/>
+                    </tree> 
+                </field>
           </group>
           <footer>
            <button name="button_wizard" 
@@ -48,6 +61,11 @@
            class="btn-primary" 
            type="object"
            attrs="{'invisible': [('estado','!=', 'surtida')]}"/>
+           <button name="button_retornar2_wizard" 
+           string="Terminar" 
+           class="btn-primary" 
+           type="object"
+           attrs="{'invisible': [('parent.estado','!=', 'retornada')]}"/>
             <button string="Cancel" class="btn-secondary" special="cancel"/>            
           </footer>
         </form>

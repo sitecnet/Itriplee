@@ -73,6 +73,7 @@ class SeriesWizard(models.TransientModel):
         ("surtida","Surtida"),
         ], 'Estado del movimiento', default='programada')
     fecha = fields.Date('Fecha', default=_default_fecha)
+    salientes = fields.One2many('itriplee.movimientos.linea.transient', 'salientes', string='Equipos por Salir', ondelete='cascade')
 
     @api.model    
     def default_get(self, fields):        
@@ -142,6 +143,7 @@ class SeriesWizard(models.TransientModel):
     def button_retornar1_wizard(self):
         active_obj = self.env['itriplee.movimientos'].browse(self._context.get('active_ids'))
         regresadas = []
+        salidas = []
         for rec in active_obj:
             rec.estado = 'retornada'
             rec.servicio.estado_refacciones = 'regresadas'
@@ -168,18 +170,38 @@ class SeriesWizard(models.TransientModel):
                 'productos': regresadas,
                 } 
                 self.env['itriplee.movimientos'].create(vals)
-
+            else:
+                salidas.append((0, 0, {
+                    'producto': line.producto.id,
+                    'cantidad': 1,
+                    'seriesdisponibles': line.seriesdisponibles.id
+                    }))
+                self.estado.update({'estado' : 'retornada'})
+                self.salientes.write(salidas)
+            
+    def button_retornar2_wizard(self):
+        active_obj = self.env['itriplee.movimientos'].browse(self._context.get('active_ids'))
+        salidas = []
+        for line in self.salientes:
+            pass
 
 class lineasWizard(models.TransientModel):
     _name = 'itriplee.movimientos.linea.transient'
 
     productow = fields.Many2one('itriplee.series.wizard', string='Movimiento')
+    salientes = fields.Many2one('itriplee.series.wizard', string='Productos por Salir')
     cantidad = fields.Integer('Cantidad')
     producto = fields.Many2one('itriplee.catalogo')
     movimiento_id = fields.Many2one('itriplee.movimientos', string='Movimiento')
     series = fields.One2many('itriplee.movimientos.series.transient', 'movimiento', string='Series')
     seriesdisponibles = fields.Many2one('itriplee.stock.series', string='Series')
     regresar = fields.Boolean('Regresar al almacen', default=False)
+    tipo_salida = fields.Selection([
+                    ("venta","Venta"),
+                    ("garantia","Garantia"),
+                    ], 'Tipo de Salida')
+    serie_nueva = fields.Char('Serie de remplazo')
+    factura = fields.Char('Factura de Salida')
 
 class lineas_movimientos(models.Model):
     _name = 'itriplee.movimientos.linea'

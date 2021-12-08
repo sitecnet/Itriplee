@@ -158,7 +158,6 @@ class SeriesWizard(models.TransientModel):
                 }) 
                 regresadas.append((0, 0, {
                     'producto': line.producto.id,
-                    'estado_refaccion': line.estado_refaccion,
                     'cantidad': 1,
                     'seriesdisponibles': line.seriesdisponibles
                     }))

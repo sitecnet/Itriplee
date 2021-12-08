@@ -32,7 +32,7 @@
                     </tree> 
                 </field>
 
-          <field name="salientes">
+          <field name="salientes" context="{'regresar': False}">
                     <tree string="Cantidades" editable="bottom">
                       <field name="producto"/>
                       <field name="cantidad"/>

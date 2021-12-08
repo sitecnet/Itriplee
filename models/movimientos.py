@@ -73,7 +73,7 @@ class SeriesWizard(models.TransientModel):
         ("surtida","Surtida"),
         ], 'Estado del movimiento', default='programada')
     fecha = fields.Date('Fecha', default=_default_fecha)
-    salientes = fields.One2many('itriplee.movimientos.linea.transient', 'salientes', string='Equipos por Salir', ondelete='cascade')
+    salientes = fields.One2many('itriplee.movimientos.linea.transient', 'salientes', domain=[('regresar','=',False), string='Equipos por Salir', ondelete='cascade')
 
     @api.model    
     def default_get(self, fields):        
@@ -171,13 +171,7 @@ class SeriesWizard(models.TransientModel):
                 } 
                 rec.env['itriplee.movimientos'].create(vals)
             else:
-                for line in self.productos:
-                    salientes.append((0, 0, {
-                    'producto': line.producto.id,
-                    'cantidad': 1,
-                    'seriesdisponibles': line.seriesdisponibles.id
-                    }))
-                    self.salientes.write(salientes)
+                pass
             return {"type": "set_scrollTop"}
             
     def button_retornar2_wizard(self):

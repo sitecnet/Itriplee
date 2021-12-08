@@ -26,15 +26,15 @@
                       domain="[('producto','=', producto)]"/>
                       <field name="series"                      
                       widget="many2many_tags"
-                      attrs="{'invisible': [('parent.estado','!=', 'programada')]}"/>
+                      attrs="{'column_invisible': [('parent.estado','!=', 'programada')]}"/>
                       <field name="regresar"
-                      attrs="{'invisible': [('parent.estado','!=', 'surtida')]}"/>
+                      attrs="{'column_invisible': [('parent.estado','!=', 'surtida')]}"/>
                       <field name="tipo_salida"
-                      attrs="{'invisible': [('parent.estado','!=', 'retornada')]}"/>
+                      attrs="{'column_invisible': [('parent.estado','!=', 'retornada')]}"/>
                       <field name="serie_nueva"
-                       attrs="{'invisible': [('tipo_salida','!=', 'garantia')]}"/>
+                       attrs="{'column_invisible': [('tipo_salida','!=', 'garantia')]}"/>
                       <field name="factura"
-                       attrs="{'invisible': [('tipo_salida','!=', 'venta')]}"/>
+                       attrs="{'column_invisible': [('tipo_salida','!=', 'venta')]}"/>
                     </tree> 
                 </field>
                 <!--

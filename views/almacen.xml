@@ -166,9 +166,20 @@
           <sheet>
           <div class="oe_button_box" name="button_box">
            <button type="object" class="oe_stat_button" icon="fa-lock">
-           <field name="reservado" widget="statinfo"/>
+           <field name="reservado" string="Reservado" widget="statinfo"/>
            </button>
-
+           <button type="object" class="oe_stat_button" icon="fa-check-square">
+           <field name="cantidad" string="Disponibles" widget="statinfo"/>
+           </button>
+           <button type="object" class="oe_stat_button" icon="fa-truck">
+           <field name="entrega" string="Por Recibir" widget="statinfo"/>
+           </button>
+            <button type="object" class="oe_stat_button" icon="fa-dollar">
+           <field name="vendidos" string="Vendidos" widget="statinfo"/>
+           </button>       
+          <button type="object" class="oe_stat_button" icon="fa-certificate">
+           <field name="garantias" string="Ins en Garantia" widget="statinfo"/>
+           </button>
           </div>
           <group>
           	<group>
@@ -178,7 +189,6 @@
               <field name="imagen"/>
             </group>
             <group>
-              <field name="cantidad"/>
               <field name="almacen"/>
               <field name="minimo"/>
               <field name="cb"/>

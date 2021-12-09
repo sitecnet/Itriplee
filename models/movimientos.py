@@ -217,7 +217,7 @@ class SeriesWizard(models.TransientModel):
                 'estado': 'entregadas',
                 'tipo': 'salida',
                 'fecha': self.fecha,
-                'movimiento': active_obj.name.id,
+                'movimiento': active_obj.id,
                 'productos': salidas,
                 } 
             self.env['itriplee.movimientos'].create(vals)# Aqui acaba la creación de los movimientos de salida

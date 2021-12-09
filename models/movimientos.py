@@ -19,6 +19,7 @@ class movimientos(models.Model):
         ("cancelada","Cancelada"),
         ("surtida","Surtida"),
         ("retornada","Refacciones retornadas"),
+        ("entregadas","Refacciones entregadas"),
         ], 'Estado del movimiento', default='programada')
     tipo = fields.Selection([
         ("entrada","Entrada"),

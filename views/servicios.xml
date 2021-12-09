@@ -43,6 +43,7 @@
         </header>
           <sheet>
             <group>
+            <field name="name"/>
               <field name="cliente"
               domain="[('customer','=',True)]"
               options="{'no_create_edit': True},

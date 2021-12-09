@@ -25,7 +25,7 @@
                       <field name="cantidad"/>
                       <field name="movimiento_id"/>
                       <field name="seriesdisponibles"                      
-                      domain="[('producto','=', producto)]"/>
+                      domain="[('producto','=', producto),('estado','=', 'disponible')]"/>
                       <field name="series"                      
                       widget="many2many_tags"/>
                       <field name="regresar"/>
@@ -37,7 +37,7 @@
                       <field name="producto"/>
                       <field name="cantidad"/>
                       <field name="seriesdisponibles"                      
-                      domain="[('producto','=', producto),('estado','=', 'disponible')]"/>
+                      domain="[('producto','=', producto)]"/>
                       <field name="tipo_salida"/>
                       <field name="serie_nueva"
                        attrs="{'invisible': [('tipo_salida','!=', 'garantia')]}"/>
@@ -259,7 +259,7 @@
                     <field name="cantidad"/>
                     <field name="producto"/>
                     <field name="seriesdisponibles"                      
-                      domain="[('producto','=', producto)]"/>
+                      domain="[('producto','=', producto),('estado','=', 'disponible')]"/>
                     <field name="series" widget="many2many_tags"/>
                 </tree>  
                 <field name="comentarios"/>            

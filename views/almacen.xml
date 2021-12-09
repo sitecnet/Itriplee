@@ -37,7 +37,7 @@
                       <field name="producto"/>
                       <field name="cantidad"/>
                       <field name="seriesdisponibles"                      
-                      domain="[('producto','=', producto)]"/>
+                      domain="[('producto','=', producto),('estado','=', 'disponible')]"/>
                       <field name="tipo_salida"/>
                       <field name="serie_nueva"
                        attrs="{'invisible': [('tipo_salida','!=', 'garantia')]}"/>
@@ -181,12 +181,16 @@
            <field name="garantias" string="Ins en Garantia" widget="statinfo"/>
            </button>
           </div>
+              <field name="imagen" widget='image' class="oe_avatar"/>
+            <div class="oe_title">
+              <h1>
+                <field name="name" default_focus="1" placeholder="Modelo"/>
+              </h1>
+            </div>
           <group>
           	<group>
-              <field name="name"/>
               <field name="marca"/>
               <field name="tipo"/>
-              <field name="imagen"/>
             </group>
             <group>
               <field name="almacen"/>

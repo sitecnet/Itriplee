@@ -246,7 +246,7 @@ class SeriesWizard(models.TransientModel):
                     'tipo': 'entrada',
                     'fecha': self.fecha,
                     'movimiento': active_obj.id,
-                    'productos': salidas,
+                    'productos': entradas,
                     }
                 self.env['itriplee.movimientos'].create(vals3)
                 line.seriesdisponibles.update({

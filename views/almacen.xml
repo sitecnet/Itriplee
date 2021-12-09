@@ -185,7 +185,6 @@
             </group>
             </group>
             <field name="series"/>
-            <field name="comentarios"/>
           </sheet>
         </form>
       </field>
@@ -248,7 +247,8 @@
                     <field name="seriesdisponibles"                      
                       domain="[('producto','=', producto)]"/>
                     <field name="series" widget="many2many_tags"/>
-                </tree>              
+                </tree>  
+                <field name="comentarios"/>            
             </field>            
           </sheet>
         </form>

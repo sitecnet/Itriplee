@@ -245,7 +245,7 @@ class SeriesWizard(models.TransientModel):
                     'estado': 'solicitada',
                     'tipo': 'entrada',
                     'fecha': self.fecha,
-                    'movimiento': active_obj.name,
+                    'movimiento': active_obj.id,
                     'productos': salidas,
                     }
                 self.env['itriplee.movimientos'].create(vals3)

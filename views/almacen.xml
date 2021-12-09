@@ -19,20 +19,25 @@
         <form string="Wizard Form">
         <group>
         <field name="estado"/>
-          <field name="productos">
+          <field name="productos"
+          attrs="{'invisible': [('estado','=', 'retornada')]}">
                     <tree string="Cantidades" editable="bottom">
                       <field name="producto"/>
                       <field name="cantidad"/>
                       <field name="movimiento_id"/>
-                      <field name="seriesdisponibles"                      
+                      <field name="seriesdisponibles"
+                      attrs="{'invisible': [('estado','=', 'programada')]}"                      
                       domain="[('producto','=', producto),('estado','=', 'disponible')]"/>
-                      <field name="series"                      
+                      <field name="series" 
+                      attrs="{'invisible': [('estado','!=', 'programada')]}"                     
                       widget="many2many_tags"/>
                       <field name="regresar"/>
                     </tree> 
                 </field>
 
-          <field name="salientes" context="{'regresar': False}">
+          <field name="salientes" 
+          attrs="{'invisible': [('estado','!=', 'retornada')]}"
+          context="{'regresar': False}">
                     <tree string="Cantidades" editable="bottom">
                       <field name="producto"/>
                       <field name="cantidad"/>
@@ -231,26 +236,39 @@
       <field name="model">itriplee.movimientos</field>
       <field name="arch" type="xml">
         <form string="Movimientos">
-        <header>
-            
-          <button name="%(action_wizard_series)d" string="Open Wizard" class="oe_highlight" type="action"></button>
-            <button name="button_recibir" string="Recibir" class="oe_highlight" type="object"/>
-            <button name="button_enviar" string="Enviar" class="oe_highlight" type="object"/>
-            <button name="button_retornar" string="Retornar" class="oe_highlight" type="object"/>
-            <button name="button_salida" string="Liberar" class="oe_highlight" type="object"/>
-            <button name="button_cancelar" string="Cancelar" type="object"/>
+        <header>            
+          <button name="%(action_wizard_series)d" 
+          string="recibir" 
+          class="oe_highlight" 
+          type="action"
+          attrs="{'invisible': [('estado','!=', 'programada')]}"
+          ></button>
+          <button name="%(action_wizard_series)d" 
+          string="Surtir" 
+          class="oe_highlight" 
+          type="action"
+          attrs="{'invisible': [('estado','!=', 'solicitada')]}"
+          ></button>
+          <button name="%(action_wizard_series)d" 
+          string="Regresar" 
+          class="oe_highlight" 
+          type="action"
+          attrs="{'invisible': [('estado','!=', 'surtida')]}"
+          ></button>
             <field name="estado" widget="statusbar" statusbar_visible="solicitada,atrasada,recibida,cancelada"/>
           </header>
           <sheet>
           <group>
           	<group>
+              <field name="estado"/>
               <field name="name"/>
               <field name="tipo"/>
               <field name="documento"/>
               <field name="fecha"/>              
             </group>
             <group>
-              <field name="servicio"/>        
+              <field name="servicio"
+              attrs="{'invisible': ['|',('estado','!=', 'solicitada'),('estado','!=', 'surtida'),('estado','!=', 'entregadas')]}"/>        
             </group>
             </group>
             <field name="productos">
@@ -258,9 +276,9 @@
                     <field name="movimiento_id"/>
                     <field name="cantidad"/>
                     <field name="producto"/>
-                    <field name="seriesdisponibles"                      
+                    <field name="seriesdisponibles" string="Serie"                     
                       domain="[('producto','=', producto),('estado','=', 'disponible')]"/>
-                    <field name="series" widget="many2many_tags"/>
+                    <field name="series" string="Series" widget="many2many_tags"/>
                 </tree>  
                 <field name="comentarios"/>            
             </field>            

@@ -37,6 +37,10 @@ class movimientos(models.Model):
     
     @api.model
     def create(self, vals):
+        if self.estado == 'venta':
+            pass
+        elif self.estado == 'consigna':
+            pass
         vals['name'] = self.env['ir.sequence'].next_by_code('movimientos') or ('New')
         res = super(movimientos, self).create(vals)
         return res
@@ -91,7 +95,7 @@ class SeriesWizard(models.TransientModel):
             'movimiento_id': producto.movimiento_id.id,
             'cantidad': producto.cantidad,
             'producto': producto.producto.id,
-            'series': producto.series.ids,
+            'series': [],
             'seriesdisponibles': producto.seriesdisponibles.id,
             }))
             rec['productos'] = product_line        

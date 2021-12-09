@@ -164,6 +164,12 @@
       <field name="arch" type="xml">
         <form string="Almacen">
           <sheet>
+          <div class="oe_button_box" name="button_box">
+           <button type="object" class="oe_stat_button" icon="fa-lock">
+           <field name="reservado" widget="statinfo"/>
+           </button>
+
+          </div>
           <group>
           	<group>
               <field name="name"/>
@@ -173,13 +179,13 @@
             </group>
             <group>
               <field name="cantidad"/>
-              <field name="reservado"/>
               <field name="almacen"/>
               <field name="minimo"/>
               <field name="cb"/>
             </group>
             </group>
             <field name="series"/>
+            <field name="comentarios"/>
           </sheet>
         </form>
       </field>

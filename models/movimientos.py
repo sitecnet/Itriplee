@@ -31,6 +31,8 @@ class movimientos(models.Model):
     productos = fields.One2many('itriplee.movimientos.linea', 'movimiento_id', string='Cantidades', ondelete='cascade')
     series = fields.One2many('itriplee.movimientos.series', 'name', string='Series')
     servicio = fields.Many2one('itriplee.servicio', 'Servicio', ondelete='cascade')
+    movimiento = fields.Many2one('itriplee.movimientos', 'Proviene de', ondelete='cascade')
+    comentarios = fields.Text('comentarios')
     
     @api.model
     def create(self, vals):
@@ -72,6 +74,7 @@ class SeriesWizard(models.TransientModel):
         ("cancelada","Cancelada"),
         ("retornada","Refacciones retornadas"),
         ("surtida","Surtida"),
+        ("entregadas","Entregadas"),
         ], 'Estado del movimiento', default='programada')
     fecha = fields.Date('Fecha', default=_default_fecha)
     salientes = fields.One2many('itriplee.movimientos.linea.transient', 'productow', string='Equipos por Salir', ondelete='cascade', domain=[('regresar','=',False)])
@@ -81,7 +84,7 @@ class SeriesWizard(models.TransientModel):
         rec = super(SeriesWizard, self).default_get(fields)
         product_line = []
         active_obj = self.env['itriplee.movimientos'].browse(self._context.get('active_ids')) 
-        self.update({'estado' : active_obj.estado})
+        self.write({'estado' : active_obj.estado})
         for producto in active_obj.productos:
             product_line.append((0, 0, {
             'movimiento_id': producto.movimiento_id.id,
@@ -144,7 +147,6 @@ class SeriesWizard(models.TransientModel):
     def button_retornar1_wizard(self):
         active_obj = self.env['itriplee.movimientos'].browse(self._context.get('active_ids'))
         regresadas = []
-        salientes = []
         self.estado = 'retornada'        
         for rec in active_obj:
             rec.servicio.estado_refacciones = 'regresadas'
@@ -165,7 +167,7 @@ class SeriesWizard(models.TransientModel):
                     'seriesdisponibles': line.seriesdisponibles.id
                     }))
                 vals = {
-                'estado': 'solicitada',
+                'estado': 'recibida',
                 'tipo': 'entrada',
                 'fecha': self.fecha,
                 'productos': regresadas,
@@ -178,8 +180,90 @@ class SeriesWizard(models.TransientModel):
     def button_retornar2_wizard(self):
         active_obj = self.env['itriplee.movimientos'].browse(self._context.get('active_ids'))
         salidas = []
+        entradas = []
         for line in self.salientes:
-            pass
+            salida = line.producto.reservado - line.cantidad
+            line.producto.update({
+                'reservada': salida
+                }) 
+            if line.tipo_salida == 'garantia':
+                garantia = line.producto.garantias + line.cantidad
+                line.producto.update({
+                'garantias': garantia
+                })
+                line.seriesdisponibles.update({
+                'estado': 'instalado',
+                'movimiento_salida': active_obj.id
+                }) 
+            elif line.tipo_salida == 'venta':
+                venta = line.producto.vendidos + line.cantidad
+                line.producto.update({
+                'vendidos': venta
+                }) 
+                line.seriesdisponibles.update({
+                'estado': 'vendida',
+                'movimiento_salida': active_obj.id,
+                'documento_salida': line.factura
+                })# Aqui acaban los movimientos directo al inventario del producto
+            else:
+                pass
+            salidas.append((0, 0, {
+                    'producto': line.producto.id,
+                    'cantidad': 1,
+                    'seriesdisponibles': line.seriesdisponibles.id
+                    }))
+            vals = {
+                'estado': 'entregadas',
+                'tipo': 'salida',
+                'fecha': self.fecha,
+                'movimiento': active_obj.name,
+                'productos': salidas,
+                } 
+            self.env['itriplee.movimientos'].create(vals)# Aqui acaba la creación de los movimientos de salida
+            if line.serie_nueva != False and line.tipo_salida == 'garantia':
+                for reg in self.salientes:
+                    total = line.producto.cantidad + line.cantidad
+                    line.producto.update({
+                    'cantidad': total
+                    })
+                    vals2 = {
+                    'name': reg.serie_nueva,
+                    'reparado': True,
+                    'estado': 'garantia',
+                    'producto': line.producto.id,
+                    'documento': active_obj.servicio.name,
+                    'movimiento_entrada': line.movimiento_id.id,
+                    }
+                nuevo = self.env['itriplee.stock.series'].create(vals2)                    
+                entradas.append((0, 0, {
+                    'producto': line.producto.id,
+                    'cantidad': 1,
+                    'seriesdisponibles': nuevo.id
+                    }))
+                vals3 = {
+                    'estado': 'solicitada',
+                    'tipo': 'entrada',
+                    'fecha': self.fecha,
+                    'movimiento': active_obj.name,
+                    'productos': salidas,
+                    }
+                self.env['itriplee.movimientos'].create(vals3)
+                line.seriesdisponibles.update({
+                'remplazo': nuevo.id
+                })
+                return nuevo
+            elif line.serie_nueva == False and line.tipo_salida == 'garantia':
+                line.seriesdisponibles.update({
+                'definitivo': True
+                })
+                active_obj.write({
+                    'comentarios' : 'no se trajo pieza de remplazo por equipo de garantia'
+                    })
+
+
+            
+
+
 
 class lineasWizard(models.TransientModel):
     _name = 'itriplee.movimientos.linea.transient'

@@ -24,8 +24,9 @@ AVAILABLE_STATES = [
 
 class servicio(models.Model):
     _name = 'itriplee.servicio'
-    _rec_name = 'cliente'    
+    _rec_name = 'name'    
 
+    name = fields.Char('consecutivo')
     cliente = fields.Many2one('res.partner', 'Cliente', required=True)
     visita = fields.Datetime('Visita Programada', required=True)
     tipo_visita = fields.Selection([

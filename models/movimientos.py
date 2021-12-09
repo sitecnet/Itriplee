@@ -184,7 +184,7 @@ class SeriesWizard(models.TransientModel):
         for line in self.salientes:
             salida = line.producto.reservado - line.cantidad
             line.producto.update({
-                'reservada': salida
+                'reservado': salida
                 }) 
             if line.tipo_salida == 'garantia':
                 garantia = line.producto.garantias + line.cantidad
@@ -222,9 +222,9 @@ class SeriesWizard(models.TransientModel):
             self.env['itriplee.movimientos'].create(vals)# Aqui acaba la creación de los movimientos de salida
             if line.serie_nueva != False and line.tipo_salida == 'garantia':
                 for reg in self.salientes:
-                    total = line.producto.cantidad + line.cantidad
+                    total2 = line.producto.reservado + line.cantidad
                     line.producto.update({
-                    'cantidad': total
+                    'reservado': total2
                     })
                     vals2 = {
                     'name': reg.serie_nueva,

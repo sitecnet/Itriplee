@@ -193,7 +193,7 @@ class SeriesWizard(models.TransientModel):
                 'garantias': garantia
                 })
                 line.seriesdisponibles.update({
-                'estado': 'instalado',
+                'estado': 'Instalado',
                 'movimiento_salida': active_obj.id
                 }) 
             elif line.tipo_salida == 'venta':

@@ -269,7 +269,7 @@
           class="oe_highlight" 
           type="object"
           attrs="{'invisible': [('estado','!=', 'entregadas'),('tsalida','!=', 'consigna')]}"/>
-            <field name="estado" widget="statusbar" statusbar_visible="solicitada,atrasada,recibida,cancelada"/>
+            <field name="estado" widget="statusbar" statusbar_visible="solicitada,atrasada,recibida,cancelada,surtida"/>
           </header>
           <sheet>
           <group>

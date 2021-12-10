@@ -318,6 +318,7 @@ class lineasWizard(models.TransientModel):
                     ], 'Tipo de Salida')
     serie_nueva = fields.Char('Serie de remplazo')
     factura = fields.Char('Factura de Salida')
+    tecnico = fields.Many2one('res.users', 'Técnico', ondelete='cascade')
 
 class lineas_movimientos(models.Model):
     _name = 'itriplee.movimientos.linea'
@@ -334,6 +335,7 @@ class lineas_movimientos(models.Model):
                     ], 'De Preferencia')
     productod = fields.Many2one('itriplee.catalogo', related='seriesdisponibles.producto', store=True,
         string="Producto")
+    tecnico = fields.Many2one('res.users', 'Técnico', ondelete='cascade')
         
 
 class lineas_movimientos_series(models.Model):

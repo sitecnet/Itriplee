@@ -100,7 +100,6 @@ class servicioRefacciones(models.TransientModel):
 
     refacciones = fields.One2many('itriplee.servicio.refacciones.transient', 'name', string='Refacciones', ondelete='cascade')
     fecha = fields.Date('Fecha', default=_default_fecha)
-       
 
     @api.multi
     def button_wizard(self):
@@ -123,10 +122,9 @@ class servicioRefacciones(models.TransientModel):
         for rec in active_obj:
             rec.estado_refacciones = 'solicitadas'
             rec.refacciones = movimiento
-        return movimiento   
+        return movimiento    
     
-    
-class servicioRefacciones(models.TransientModel):
+class servicioFirma(models.TransientModel):
     _name = 'itriplee.servicio.firma'
 
     firma = fields.Binary('Firma del Cliente') 
@@ -137,7 +135,7 @@ class servicioRefacciones(models.TransientModel):
         active_obj.estado = 'firmado'
         active_obj.write({'firma' : self.firma})
 
-class servicioRefacciones(models.TransientModel):
+class servicioCalificacion(models.TransientModel):
     _name = 'itriplee.servicio.calificacion'
 
     horario = fields.Selection([

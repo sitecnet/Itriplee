@@ -92,14 +92,12 @@
     	<field name="arch" type="xml">
         <form string="Wizard Form">
         <group>
-        <field name="estado"/>
           <field name="productos">
                     <tree string="Cantidades" editable="bottom">
                       <field name="producto"/>
                       <field name="cantidad"/>
                       <field name="series"               
                       widget="many2many_tags"/>
-                      <field name="regresar"/>
                     </tree> 
                 </field>
           </group>

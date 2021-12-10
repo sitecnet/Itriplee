@@ -48,9 +48,9 @@ class movimientos(models.Model):
         res = super(movimientos, self).create(vals)
         if self.tsalida == 'venta':
             for line in self.salidas:
-                salida = line.producto.cantidad - 1
-                venta = line.producto.vendidos + 1
-                line.producto.update
+                salida = line.productod.cantidad - 1
+                venta = line.productod.vendidos + 1
+                line.productod.update
                 ({
                 'cantidad': salida,
                 'vendidos': venta

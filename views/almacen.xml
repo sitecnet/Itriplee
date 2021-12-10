@@ -276,8 +276,10 @@
           	<group>
               <field name="name"/>
               <field name="tipo"/>
-              <field name="tsalida"/>
-              <field name="documento"/>
+              <field name="tsalida" 
+              attrs="{'invisible': [('estado','!=', 'salida')]}"/>
+              <field name="documento"
+              attrs="{'invisible': [('estado','!=', 'entrada')]}"/>/>
               <field name="fecha"/>              
             </group>
             <group>
@@ -285,7 +287,7 @@
               attrs="{'invisible': ['|',('estado','!=', 'solicitada'),('estado','!=', 'surtida'),('estado','!=', 'entregadas')]}"/>
               <field name="tecnico"
               attrs="{'invisible': [('tsalida','!=', 'consigna')]}"/> 
-              <field name="cantidad"/>           
+            <!--  <field name="cantidad"/>  -->         
             </group>
             </group>
             <field name="productos">

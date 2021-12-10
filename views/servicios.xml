@@ -18,14 +18,12 @@
 	    <field name="type">form</field>
     	<field name="arch" type="xml">
         <form string="Wizard Form">
-        <group>
           <field name="refacciones">
           <tree string="Refacciones" editable="bottom">
             <field name="producto"/>
             <field name="estado_refaccion"/>
           </tree>
           </field>
-          </group>
           <footer>
            <button name="button_wizard" string="Solicitar" class="btn-primary" type="object"/>
             <button string="Cancel" class="btn-secondary" special="cancel"/>
@@ -105,6 +103,7 @@
         <button name="%(action_wizard_servicio)d" string="Solicitar Refacciones" class="oe_highlight" type="action"></button>
         <button name="%(action_wizard_calificar)d" string="Calificar Servicio" class="oe_highlight" type="action"></button>
         <button name="%(action_wizard_firma)d" string="Firma de cliente" class="oe_highlight" type="action"></button>
+        <field name="estado" widget="statusbar" statusbar_visible="solicitada,atrasada,recibida,cancelada"/>
         </header>
           <sheet>
             <group>
@@ -121,7 +120,6 @@
             <group>
               <field name="tipo_visita"/>              
               <field name="prioridad"/>
-              <field name="estado"/>
               <field name="estado_equipo"/>
             </group>
             <group>
@@ -159,6 +157,12 @@
             </group>
           </page>
           <page name='calidad' string='Calidad'>
+          <group>
+            <field name="horario"/>
+            <field name="reparado"/>
+            <field name="observaciones"/>
+            </group>
+          
           </page>
         </notebook>
       </sheet>

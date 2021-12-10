@@ -159,7 +159,7 @@
       </field>
     </record>
 
-    <menuitem id="menu_itriplee_servicio_root" name="Servicios" sequence="10"/>
+    <menuitem id="menu_itriplee_servicio_root" name="Servicios" sequence="10" web_icon="itriplee,static/src/img/servicio.png"/>
     <menuitem id="menu_itriplee_servicio_categ" name="Servicios" parent="menu_itriplee_servicio_root" sequence="0"/>
     <menuitem id="menu_itriplee_servicio_action" name="Servicios" parent="menu_itriplee_servicio_categ" action="action_itriplee_servicio_view" sequence="0"/>
 

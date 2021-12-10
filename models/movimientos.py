@@ -74,12 +74,12 @@ class movimientos(models.Model):
         self.estado = 'entregadas'
         unidad = 1
         for line in self.salidas:
-            salida = line.seriesdisponibles.producto.cantidad + unidad
-            reserva = line.seriesdisponibles.producto.reservado + unidad
-            line.seriesdisponibles.producto.update
+            salida = line.productod.cantidad + unidad
+            reserva = line.productod.reservado + unidad
+            line.productod.update
             ({
             'cantidad': salida,
-            'reservado': reserva
+            'reservado': reserva,
             })
             line.seriesdisponibles.update({
             'movimiento_salida': self.id,

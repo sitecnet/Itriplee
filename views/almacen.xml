@@ -262,6 +262,7 @@
               <field name="estado"/>
               <field name="name"/>
               <field name="tipo"/>
+              <field name="tsalida"/>
               <field name="documento"/>
               <field name="fecha"/>              
             </group>
@@ -282,15 +283,14 @@
             </field>
             <field name="salidas">
               <tree string="Ventas" editable="bottom">
-                  <field name="name"/>
-                  <field name="producto"/>
-                  <field name="movimiento"/>
+                  <field name="seriesdisponibles"/>
+                  <field name="productod"/>
+                  <field name="movimiento_id"/>
                   <field name="movimiento_salida"/>
                   <field name="documento_salida"/>
               </tree> 
             </field>
-                <field name="comentarios"/>            
-                       
+                <field name="comentarios"/>          
           </sheet>
         </form>
       </field>

@@ -40,7 +40,7 @@ class movimientos(models.Model):
     movimiento = fields.Many2one('itriplee.movimientos', 'Proviene de', ondelete='cascade')
     comentarios = fields.Text('comentarios')
     tecnico = fields.Many2one('res.users', 'Técnico', ondelete='cascade')
-    salidas = fields.One2many('itriplee.stock.series', 'movimiento', string='Salida por venta', ondelete='cascade')
+    salidas = fields.One2many('itriplee.movimientos.linea', 'movimiento_id', string='Salida por venta', ondelete='cascade')
     
     @api.model
     def create(self, vals):
@@ -55,12 +55,12 @@ class movimientos(models.Model):
                 'cantidad': salida,
                 'vendidos': venta
                 })
-                line.update({
+                line.seriesdisponibles.update({
                 'movimiento_salida': res.id,
                 'estado': 'vendida',
                 'documento_salida':self.documento_salida
                 })
-        elif self.estado == 'consigna':
+        elif self.tsalida == 'consigna':
             pass        
         return res
 
@@ -319,7 +319,9 @@ class lineas_movimientos(models.Model):
     estado_refaccion = fields.Selection([
                     ("nueva","Nueva"),
                     ("reparada","Reparada"),
-                    ], 'De Preferencia')     
+                    ], 'De Preferencia')
+    productod = fields.Many2one('itriplee.catalogo', related='seriesdisponibles.producto', store=True,
+        string="Producto")
         
 
 class lineas_movimientos_series(models.Model):

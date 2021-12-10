@@ -75,6 +75,12 @@ class servicio(models.Model):
         ], 'Estado de las refacciones del servicio', default='disponible')
     refacciones = fields.Many2one('itriplee.movimientos', 'Refacciones Solicitadas')
 
+    @api.model
+    def create(self, vals):
+        vals['name'] = self.env['ir.sequence'].next_by_code('servicio') or ('New')
+        res = super(servicio, self).create(vals)  
+        return res
+
 class servicioRefacciones(models.TransientModel):
     _name = 'itriplee.servicio.refacciones'
 
@@ -83,6 +89,7 @@ class servicioRefacciones(models.TransientModel):
 
     refacciones = fields.One2many('itriplee.servicio.refacciones.transient', 'name', string='Refacciones', ondelete='cascade')
     fecha = fields.Date('Fecha', default=_default_fecha)
+    firma = fields.Binary('Firma del Cliente')
 
     @api.multi
     def button_wizard(self):

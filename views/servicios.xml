@@ -2,6 +2,15 @@
  <odoo>
   <data>
 
+  <!-- Series-->
+    <record id="seq_servicios" model="ir.sequence">
+      <field name="name">Secuencia de Servicios</field>
+      <field name="code">servicio</field>
+      <field name="prefix">Ser</field>
+      <field name="padding">4</field>
+      <field name="company_id" eval="False"/>
+    </record>
+
   <record id="view_wizard_servicio_itriplee" model="ir.ui.view">
       <field name="name">itriplee.servicio.wizard.view</field>
       <field name="model">itriplee.servicio.refacciones</field>
@@ -10,6 +19,7 @@
     	<field name="arch" type="xml">
         <form string="Wizard Form">
         <group>
+        <field name="firma" widget="signature">
           <field name="refacciones">
           <tree string="Refacciones" editable="bottom">
                       <field name="producto"/>

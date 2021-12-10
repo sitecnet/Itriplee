@@ -285,7 +285,8 @@
               <field name="servicio"
               attrs="{'invisible': ['|',('estado','!=', 'solicitada'),('estado','!=', 'surtida'),('estado','!=', 'entregadas')]}"/>
               <field name="tecnico"
-              attrs="{'invisible': [('tsalida','!=', 'consigna')]}"/>                
+              attrs="{'invisible': [('tsalida','!=', 'consigna')]}"/> 
+              <field name="cantidad"/>           
             </group>
             </group>
             <field name="productos">

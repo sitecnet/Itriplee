@@ -32,6 +32,7 @@ class movimientos(models.Model):
         ("consigna","Consigna"),
         ], 'Tipo de Salida')
     documento = fields.Char('Documento de entrada')
+    cantidad = fields.Integer('Cantidad', default=1)
     documento_salida = fields.Char('Factura')
     fecha = fields.Date('Fecha', default=_default_fecha)
     productos = fields.One2many('itriplee.movimientos.linea', 'movimiento_id', string='Cantidades', ondelete='cascade')
@@ -72,7 +73,7 @@ class movimientos(models.Model):
     @api.multi
     def button_consigna(self):
         self.estado = 'entregadas'
-        unidad = 1
+        unidad = self.cantidad
         for line in self.salidas:
             salida = line.productod.cantidad + unidad
             reserva = line.productod.reservado + unidad

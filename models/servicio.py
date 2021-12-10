@@ -116,7 +116,7 @@ class servicioRefacciones(models.TransientModel):
         return movimiento
 
     @api.multi
-    def button_wizard(self):
+    def button_terminar(self):
         active_obj = self.env['itriplee.servicio'].browse(self._context.get('active_ids'))
         active_obj.estado = 'firmado'
         active_obj.write = ({'firma' : self.firma})

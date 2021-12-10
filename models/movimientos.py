@@ -5,6 +5,7 @@ from odoo import models, fields, api
 class movimientos(models.Model):
     _name = 'itriplee.movimientos'
     _rec_name = 'name'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     def _default_fecha(self):
         return fields.Date.context_today(self)

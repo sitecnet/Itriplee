@@ -73,12 +73,12 @@ class movimientos(models.Model):
     def button_consigna(self):
         self.estado = 'entregadas'
         for line in self.salidas:
-            salida = line.productod.cantidad
-            reserva = line.productod.reservado
+            salida = line.seriesdisponibles.producto.cantidad +1
+            reserva = line.seriesdisponibles.producto.cantidad +1
             line.productod.update
             ({
-            'cantidad': salida + 1,
-            'reservado': reserva + 1
+            'cantidad': salida,
+            'reservado': reserva
             })
             line.seriesdisponibles.update({
             'movimiento_salida': self.id,

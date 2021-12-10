@@ -19,17 +19,15 @@
     	<field name="arch" type="xml">
         <form string="Wizard Form">
         <group>
-        <field name="firma" widget="signature"/>
           <field name="refacciones">
           <tree string="Refacciones" editable="bottom">
-                      <field name="producto"/>
-                      <field name="estado_refaccion"/>
+            <field name="producto"/>
+            <field name="estado_refaccion"/>
           </tree>
           </field>
           </group>
           <footer>
            <button name="button_wizard" string="Solicitar" class="btn-primary" type="object"/>
-           <button name="button_terminar" string="Terminar" class="btn-primary" type="object"/>
             <button string="Cancel" class="btn-secondary" special="cancel"/>
           </footer>
         </form>
@@ -42,6 +40,62 @@
     <field name="view_type">form</field>
 	  <field name="view_mode">form</field>
     <field name="target">new</field>
+    </record>
+
+    <record id="view_wizard_servicio_itriplee" model="ir.ui.view">
+      <field name="name">itriplee.servicio.firma.view</field>
+      <field name="model">itriplee.servicio.firma</field>
+      <field name="groups_id"></field>
+	    <field name="type">form</field>
+    	<field name="arch" type="xml">
+        <form string="Wizard Firma">
+        <group>
+        <field name="firma" widget="signature"/>
+          </field>
+          </group>
+          <footer>
+           <button name="button_terminar" string="Terminar" class="btn-primary" type="object"/>
+            <button string="Cancel" class="btn-secondary" special="cancel"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_wizard_firma" model="ir.actions.act_window">
+    <field name="name">Firmar de aceptado</field>
+    <field name="res_model">itriplee.servicio.firma</field>
+    <field name="view_type">form</field>
+	  <field name="view_mode">form</field>
+    <field name="target">new</field>
+    </record>
+
+    <record id="view_wizard_calificacion" model="ir.ui.view">
+      <field name="name">itriplee.servicio.calificacion.view</field>
+      <field name="model">itriplee.servicio.calificacion</field>
+      <field name="groups_id"></field>
+	    <field name="type">form</field>
+    	<field name="arch" type="xml">
+        <form string="Wizard calificacion">
+        <group>
+        <field name="horario"/>
+        <field name="reparado"/>
+        <field name="observaciones"/>
+          </field>
+          </group>
+          <footer>
+           <button name="button_calificar" string="Terminar" class="btn-primary" type="object"/>
+            <button string="Cancel" class="btn-secondary" special="cancel"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_wizard_calificar" model="ir.actions.act_window">
+    <field name="name">Calificar Servicio</field>
+    <field name="res_model">itriplee.servicio.calificacion</field>
+    <field name="view_type">form</field>
+	  <field name="view_mode">form</field>
+    <field name="target">new</field>
     </record> 
 
     <record id="view_itriplee_servicio_form" model="ir.ui.view">
@@ -51,6 +105,8 @@
         <form string="Servicio Form">
         <header>
         <button name="%(action_wizard_servicio)d" string="Solicitar Refacciones" class="oe_highlight" type="action"></button>
+        <button name="%(action_wizard_calificar)d" string="Calificar Servicio" class="oe_highlight" type="action"></button>
+        <button name="%(action_wizard_firma)d" string="Firma de cliente" class="oe_highlight" type="action"></button>
         </header>
           <sheet>
             <group>

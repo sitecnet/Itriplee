@@ -76,6 +76,15 @@ class servicio(models.Model):
         ("regresadas","Las refacciones fueron regresadas o vendidas")
         ], 'Estado de las refacciones del servicio', default='disponible')
     refacciones = fields.Many2one('itriplee.movimientos', 'Refacciones Solicitadas')
+    horario = fields.Selection([
+    	("si","Si"),
+    	("no","No")],
+    	 '¿El tecnico llego en el horario acordado?')
+    reparado = fields.Selection([
+    	("si","Si"),
+    	("no","No")],
+    	 '¿El equipo quedo reparado a su entera satisfaccion?') 
+    observaciones = fields.Text('Observaciones del cliente') 
 
     @api.model
     def create(self, vals):
@@ -91,7 +100,7 @@ class servicioRefacciones(models.TransientModel):
 
     refacciones = fields.One2many('itriplee.servicio.refacciones.transient', 'name', string='Refacciones', ondelete='cascade')
     fecha = fields.Date('Fecha', default=_default_fecha)
-    firma = fields.Binary('Firma del Cliente')
+       
 
     @api.multi
     def button_wizard(self):
@@ -114,13 +123,42 @@ class servicioRefacciones(models.TransientModel):
         for rec in active_obj:
             rec.estado_refacciones = 'solicitadas'
             rec.refacciones = movimiento
-        return movimiento
+        return movimiento   
+    
+    
+class servicioRefacciones(models.TransientModel):
+    _name = 'itriplee.servicio.firma'
+
+    firma = fields.Binary('Firma del Cliente') 
 
     @api.multi
     def button_terminar(self):
         active_obj = self.env['itriplee.servicio'].browse(self._context.get('active_ids'))
         active_obj.estado = 'firmado'
         active_obj.write({'firma' : self.firma})
+
+class servicioRefacciones(models.TransientModel):
+    _name = 'itriplee.servicio.calificacion'
+
+    horario = fields.Selection([
+    	("si","Si"),
+    	("no","No")],
+    	 '¿El tecnico llego en el horario acordado?')
+    reparado = fields.Selection([
+    	("si","Si"),
+    	("no","No")],
+    	 '¿El equipo quedo reparado a su entera satisfaccion?') 
+    observaciones = fields.Text('Observaciones del cliente')  
+
+    @api.multi
+    def button_calificar(self):
+        active_obj = self.env['itriplee.servicio'].browse(self._context.get('active_ids'))
+        active_obj.estado = 'calificado'
+        active_obj.write({
+            'horario' : self.horario,
+            'reparado' : self.reparado,
+            'observaciones' : self.observaciones,
+            })
 
 
 class ServicioWizard(models.TransientModel):

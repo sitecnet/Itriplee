@@ -119,7 +119,7 @@ class servicioRefacciones(models.TransientModel):
     def button_terminar(self):
         active_obj = self.env['itriplee.servicio'].browse(self._context.get('active_ids'))
         active_obj.estado = 'firmado'
-        active_obj.write = ({'firma' : self.firma})
+        active_obj.write({'firma' : self.firma})
 
 
 class ServicioWizard(models.TransientModel):

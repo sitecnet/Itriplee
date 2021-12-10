@@ -94,7 +94,7 @@ class SeriesWizardRecibir(models.TransientModel):
     def _default_fecha(self):
         return fields.Date.context_today(self)
 
-    productos = fields.One2many('itriplee.movimientos.linea.recibir.transient', 'productos', string='Cantidades', ondelete='cascade')
+    productos = fields.One2many('itriplee.movimientos.linea.recibir.transient', 'productoss', string='Cantidades', ondelete='cascade')
     fecha = fields.Date('Fecha', default=_default_fecha)
 
     @api.model    
@@ -382,7 +382,7 @@ class lineas_movimientos(models.Model):
 class lineasWizardRecibir(models.TransientModel):
     _name = 'itriplee.movimientos.linea.recibir.transient'
 
-productos = fields.Many2one('itriplee.series.recibir.wizard', string='Movimiento')
+productoss = fields.Many2one('itriplee.series.recibir.wizard', string='Movimiento')
 cantidad = fields.Integer('Cantidad')
 producto = fields.Many2one('itriplee.catalogo')
 movimiento_id = fields.Many2one('itriplee.movimientos', string='Movimiento')

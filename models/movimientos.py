@@ -45,43 +45,55 @@ class movimientos(models.Model):
     @api.model
     def create(self, vals):
         vals['name'] = self.env['ir.sequence'].next_by_code('movimientos') or ('New')
-        res = super(movimientos, self).create(vals)
-        if self.tsalida == 'venta':
-            for line in self.salidas:
-                salida = line.productod.cantidad - 1
-                venta = line.productod.vendidos + 1
-                line.productod.update
-                ({
-                'cantidad': salida,
-                'vendidos': venta
-                })
-                line.seriesdisponibles.update({
-                'movimiento_salida': res.id,
-                'estado': 'vendida',
-                'documento_salida':self.documento_salida
-                })
-        elif self.tsalida == 'consigna':
-            pass        
+        res = super(movimientos, self).create(vals)  
         return res
 
     @api.multi
-    def button_recibir(self):
-        for rec in self:
-            rec.estado = 'recibida'
-        for line in self.productos:
-            total = line.producto.cantidad + line.cantidad
-            line.producto.update({
-                'cantidad': total
+    def button_vender(self):
+        for val in self:
+            val.update
+            ({
+            'estado': 'entregadas'
             })
-            for productos in line.series:
-                vals = {
-                    'name': productos.name,
-                    'estado': 'disponible',
-                    'producto': line.producto.id,
-                    'documento': self.documento,
-                    'movimiento_entrada': line.movimiento_id.id
-                }        
-                self.env['itriplee.stock.series'].create(vals)
+        for line in self.salidas:
+            salida = line.productod.cantidad - 1
+            venta = line.productod.vendidos + 1
+            line.productod.update
+            ({
+            'cantidad': salida,
+            'vendidos': venta
+            })
+            line.seriesdisponibles.update({
+            'movimiento_salida': self.id,
+            'estado': 'vendida',
+            'documento_salida':self.documento_salida
+            })
+
+    @api.multi
+    def button_consigna(self):
+        for val in self:
+            val.update
+            ({
+            'estado': 'entregadas'
+            })
+        for line in self.salidas:
+            salida = line.productod.cantidad - 1
+            reserva = line.productod.reservado + 1
+            line.productod.update
+            ({
+            'cantidad': salida,
+            'reservado': reserva
+            })
+            line.seriesdisponibles.update({
+            'movimiento_salida': self.id,
+            'estado': 'reservado',
+            'documento_salida':self.documento_salida,
+            'tecnico':self.tecnico.id
+            })
+
+    @api.multi
+    def button_retornar(self):
+        pass
 
 class SeriesWizard(models.TransientModel):
     _name = 'itriplee.series.wizard'

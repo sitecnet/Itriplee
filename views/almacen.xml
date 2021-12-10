@@ -286,8 +286,6 @@
                   <field name="seriesdisponibles"/>
                   <field name="productod"/>
                   <field name="movimiento_id"/>
-                  <field name="movimiento_salida"/>
-                  <field name="documento_salida"/>
               </tree> 
             </field>
                 <field name="comentarios"/>          

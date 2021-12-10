@@ -73,10 +73,9 @@ class movimientos(models.Model):
     @api.multi
     def button_consigna(self):
         self.estado = 'entregadas'
-        unidad = self.cantidad
         for line in self.salidas:
-            salida = line.productod.cantidad + unidad
-            reserva = line.productod.reservado + unidad
+            salida = line.productod.cantidad + self.cantidad
+            reserva = line.productod.reservado + self.cantidad
             line.productod.update
             ({
             'cantidad': salida,

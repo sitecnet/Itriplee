@@ -94,7 +94,7 @@ class SeriesWizardRecibir(models.TransientModel):
     def _default_fecha(self):
         return fields.Date.context_today(self)
 
-    productos = fields.One2many('itriplee.movimientos.linea.transient', 'productos', string='Cantidades', ondelete='cascade')
+    productos = fields.One2many('itriplee.movimientos.linea.recibir.transient', 'productos', string='Cantidades', ondelete='cascade')
     fecha = fields.Date('Fecha', default=_default_fecha)
 
     @api.model    

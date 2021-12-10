@@ -8,6 +8,7 @@ from datetime import timedelta
 class cotizaciones(models.Model):
     _name = 'itriplee.cotizaciones'
     _rec_name = 'name'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 ###Funcion Fecha automatica######
     def _default_fecha(self):
         return fields.Date.context_today(self)

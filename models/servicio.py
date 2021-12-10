@@ -25,7 +25,8 @@ AVAILABLE_STATES = [
 
 class servicio(models.Model):
     _name = 'itriplee.servicio'
-    _rec_name = 'name'    
+    _rec_name = 'name'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     name = fields.Char('consecutivo')
     cliente = fields.Many2one('res.partner', 'Cliente', required=True)

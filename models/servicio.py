@@ -18,6 +18,7 @@ AVAILABLE_STATES = [
     ('pendiente', 'Pendiente'),
     ('terminado', 'Terminado'),
     ('cancelado', 'Cancelado'),
+    ('firmado', 'Firmado'),
     ('calificado', 'Calificado'),
 ]
 
@@ -113,6 +114,12 @@ class servicioRefacciones(models.TransientModel):
             rec.estado_refacciones = 'solicitadas'
             rec.refacciones = movimiento
         return movimiento
+
+    @api.multi
+    def button_wizard(self):
+        active_obj = self.env['itriplee.servicio'].browse(self._context.get('active_ids'))
+        active_obj.estado = 'firmado'
+        active_obj.write = ({'firma' : self.firma})
 
 
 class ServicioWizard(models.TransientModel):

@@ -29,6 +29,7 @@
           </group>
           <footer>
            <button name="button_wizard" string="Solicitar" class="btn-primary" type="object"/>
+           <button name="button_terminar" string="Terminar" class="btn-primary" type="object"/>
             <button string="Cancel" class="btn-secondary" special="cancel"/>
           </footer>
         </form>
@@ -66,7 +67,7 @@
             <group>
               <field name="tipo_visita"/>              
               <field name="prioridad"/>
-              <!-- <field name="estado"/> -->
+              <field name="estado"/>
               <field name="estado_equipo"/>
             </group>
             <group>
@@ -94,7 +95,7 @@
             <field name="responsable"/>
             <field name="resultado"/>
             <field name="comentarios"/>
-            <field name="firma1" widget="signature"/>
+            <field name="firma" readonly=True/>
             </group>
           </page>
             <page name='refacciones' string='Refacciones'>

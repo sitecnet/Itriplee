@@ -276,10 +276,8 @@
           	<group>
               <field name="name"/>
               <field name="tipo"/>
-              <field name="tsalida" 
-              attrs="{'invisible': [('estado','!=', 'salida')]}"/>
-              <field name="documento"
-              attrs="{'invisible': [('estado','!=', 'entrada')]}"/>/>
+              <field name="tsalida"/>
+              <field name="documento"/>
               <field name="fecha"/>              
             </group>
             <group>

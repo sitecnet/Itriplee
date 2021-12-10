@@ -95,7 +95,7 @@
             <field name="responsable"/>
             <field name="resultado"/>
             <field name="comentarios"/>
-            <field name="firma"/>
+            <field name="firma" widget="image" readonly="1"/>
             </group>
           </page>
             <page name='refacciones' string='Refacciones'>

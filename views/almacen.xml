@@ -25,8 +25,7 @@
                       <field name="producto"/>
                       <field name="cantidad"/>
                       <field name="movimiento_id"/>
-                      <field name="seriesdisponibles"
-                      attrs="{'invisible': [('parent.estado','!=', 'solicitada')]}"                      
+                      <field name="seriesdisponibles"                   
                       domain="[('producto','=', producto),('estado','=', 'disponible')]"/>
                       <field name="series" 
                       attrs="{'invisible': [('parent.estado','!=', 'programada')]}"                     

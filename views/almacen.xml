@@ -77,8 +77,47 @@
     </record>
 
     <record id="action_wizard_series" model="ir.actions.act_window">
-    <field name="name">recibir Wizard</field>
+    <field name="name"> Wizard</field>
     <field name="res_model">itriplee.series.wizard</field>
+    <field name="view_type">form</field>
+	  <field name="view_mode">form</field>
+    <field name="target">new</field>
+    </record> 
+
+    <record id="view_wizard_recibir_itriplee" model="ir.ui.view">
+      <field name="name">itriplee.series.wizard.recibir.view</field>
+      <field name="model">itriplee.series.recibir.wizard</field>
+      <field name="groups_id"></field>
+	    <field name="type">form</field>
+    	<field name="arch" type="xml">
+        <form string="Wizard Form">
+        <group>
+        <field name="estado"/>
+          <field name="productos">
+                    <tree string="Cantidades" editable="bottom">
+                      <field name="producto"/>
+                      <field name="cantidad"/>
+                      <field name="series"               
+                      widget="many2many_tags"/>
+                      <field name="regresar"/>
+                    </tree> 
+                </field>
+          </group>
+          <footer>
+           <button name="button_wizard" 
+           string="Recibir" 
+           class="btn-primary" 
+           type="object"/>
+            <button string="Cancel" class="btn-secondary" special="cancel"/>            
+          </footer>
+        </form>
+      </field>
+    </record>
+
+
+    <record id="action_wizard_series_recibir" model="ir.actions.act_window">
+    <field name="name">Recibir Wizard</field>
+    <field name="res_model">itriplee.series.recibir.wizard</field>
     <field name="view_type">form</field>
 	  <field name="view_mode">form</field>
     <field name="target">new</field>
@@ -235,11 +274,10 @@
       <field name="arch" type="xml">
         <form string="Movimientos">
         <header>            
-          <button name="%(action_wizard_series)d" 
+          <button name="%(action_wizard_series_recibir)d" 
           string="recibir" 
           class="oe_highlight" 
           type="action"
-          attrs="{'invisible': [('estado','!=', 'programada')]}"
           ></button>
           <button name="%(action_wizard_series)d" 
           string="Surtir" 

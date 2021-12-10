@@ -51,7 +51,7 @@ class movimientos(models.Model):
 
     @api.multi
     def button_vender(self):
-        'estado': 'entregadas'
+        self.estado = 'entregadas'
         for line in self.salidas:
             salida = line.productod.cantidad - 1
             venta = line.productod.vendidos + 1

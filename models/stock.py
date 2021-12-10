@@ -42,8 +42,8 @@ class series(models.Model):
     documento = fields.Char('No. de documento de entrada')
     tecnico = fields.Many2one('res.users', 'Técnico', ondelete='cascade')
     documento_salida = fields.Char('No. de documento de salida')
-    movimiento_entrada = fields.Many2one('itriplee.movimientos', 'No. de documento de entrada')
-    movimiento_salida = fields.Many2one('itriplee.movimientos', 'No. de documento de salida')
+    movimiento_entrada = fields.Many2one('itriplee.movimientos', 'Movimiento de entrada')
+    movimiento_salida = fields.Many2one('itriplee.movimientos', 'Movimiento de salida')
     #servicio = fields.Many2one()
     #movimientos = fields.Many2many('itriplee.movimientos.linea',
      #                         'movimiento_series_rel',

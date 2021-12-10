@@ -51,7 +51,6 @@
         <form string="Wizard Firma">
         <group>
         <field name="firma" widget="signature"/>
-          </field>
           </group>
           <footer>
            <button name="button_terminar" string="Terminar" class="btn-primary" type="object"/>
@@ -80,7 +79,6 @@
         <field name="horario"/>
         <field name="reparado"/>
         <field name="observaciones"/>
-          </field>
           </group>
           <footer>
            <button name="button_calificar" string="Terminar" class="btn-primary" type="object"/>

@@ -19,7 +19,7 @@
     	<field name="arch" type="xml">
         <form string="Wizard Form">
         <group>
-        <field name="firma" widget="signature">
+        <field name="firma" widget="signature"/>
           <field name="refacciones">
           <tree string="Refacciones" editable="bottom">
                       <field name="producto"/>

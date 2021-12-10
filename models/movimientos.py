@@ -27,22 +27,41 @@ class movimientos(models.Model):
         ("apartado","Apartado"),
         ("stock","Cantidad Inicial")
         ], 'Tipo de Movimiento')
+    tsalida = fields.Selection([
+        ("venta","Venta"),
+        ("consigna","Consigna"),
+        ], 'Tipo de Salida')
     documento = fields.Char('Documento de entrada')
+    documento_salida = fields.Char('Factura')
     fecha = fields.Date('Fecha', default=_default_fecha)
     productos = fields.One2many('itriplee.movimientos.linea', 'movimiento_id', string='Cantidades', ondelete='cascade')
     series = fields.One2many('itriplee.movimientos.series', 'name', string='Series')
     servicio = fields.Many2one('itriplee.servicio', 'Servicio', ondelete='cascade')
     movimiento = fields.Many2one('itriplee.movimientos', 'Proviene de', ondelete='cascade')
     comentarios = fields.Text('comentarios')
+    tecnico = fields.Many2one('res.users', 'Técnico', ondelete='cascade')
+    salidas = fields.One2many('itriplee.stock.series', 'movimiento', string='Salida por venta', ondelete='cascade')
     
     @api.model
     def create(self, vals):
-        if self.estado == 'venta':
-            pass
-        elif self.estado == 'consigna':
-            pass
         vals['name'] = self.env['ir.sequence'].next_by_code('movimientos') or ('New')
         res = super(movimientos, self).create(vals)
+        if self.tsalida == 'venta':
+            for line in self.salidas:
+                salida = line.producto.cantidad - 1
+                venta = line.producto.vendidos + 1
+                line.producto.update
+                ({
+                'cantidad': salida,
+                'vendidos': venta
+                })
+                line.update({
+                'movimiento_salida': res.id,
+                'estado': 'vendida',
+                'documento_salida':self.documento_salida
+                })
+        elif self.estado == 'consigna':
+            pass        
         return res
 
     @api.multi

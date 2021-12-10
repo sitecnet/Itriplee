@@ -34,6 +34,7 @@ class series(models.Model):
     name = fields.Char('Numero de Serie')
     estado = fields.Selection(AVAILABLE_STATES, 'Estado', default='disponible')
     producto = fields.Many2one('itriplee.catalogo',) #hay que hacerlo automatico
+    movimiento = fields.Many2one('itriplee.movimientos',)
     remplazo = fields.Many2one('itriplee.stock.series', 'Remplazado por')
     reparado = fields.Boolean('Reparada', default=False)
     definitivo = fields.Boolean('No genero entrada', default=False)

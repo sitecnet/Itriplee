@@ -102,7 +102,7 @@
                 </field>
           </group>
           <footer>
-           <button name="button_wizard" 
+           <button name="button_recibir1" 
            string="Recibir" 
            class="btn-primary" 
            type="object"/>

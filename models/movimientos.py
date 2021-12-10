@@ -114,7 +114,7 @@ class SeriesWizardRecibir(models.TransientModel):
         return rec
 
     @api.multi
-    def button_wizard(self):
+    def button_recibir1(self):
         active_obj = self.env['itriplee.movimientos'].browse(self._context.get('active_ids'))
         for rec in active_obj:
             rec.estado = 'recibida'

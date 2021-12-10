@@ -79,7 +79,7 @@ class movimientos(models.Model):
             line.productod.update
             ({
             'cantidad': salida,
-            'reservado': reserva,
+            'reservado': self.cantidad,
             })
             line.seriesdisponibles.update({
             'movimiento_salida': self.id,

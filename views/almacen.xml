@@ -296,7 +296,7 @@
                   <field name="producto"/>
                   <field name="seriesdisponibles" string="Serie"                     
                     domain="[('producto','=', producto),('estado','=', 'disponible')]"
-                    attrs="{'invisible': [('estado','=', 'solicitada')]}"/>
+                    />
                   <field name="series" string="Series" widget="many2many_tags"/>
               </tree> 
             </field>

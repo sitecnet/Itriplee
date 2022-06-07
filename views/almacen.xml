@@ -276,7 +276,8 @@
           	<group>
               <field name="name"/>
               <field name="tipo"/>
-              <field name="tsalida"/>
+              <field name="tsalida" 
+               attrs="{'invisible': [('tipo','!=', 'salida')]}"/>
               <field name="documento"/>
               <field name="fecha"/>              
             </group>
@@ -290,15 +291,17 @@
             </group>
             <field name="productos">
               <tree string="Cantidades" editable="bottom">
-                  <field name="movimiento_id"/>
+                  <!--<field name="movimiento_id"/> -->
                   <field name="cantidad"/>
                   <field name="producto"/>
                   <field name="seriesdisponibles" string="Serie"                     
-                    domain="[('producto','=', producto),('estado','=', 'disponible')]"/>
+                    domain="[('producto','=', producto),('estado','=', 'disponible')]"
+                    attrs="{'invisible': [('estado','=', 'solicitada')]}"/>
                   <field name="series" string="Series" widget="many2many_tags"/>
               </tree> 
             </field>
-            <field name="salidas">
+            <field name="salidas"
+            attrs="{'invisible': [('tipo','!=', 'salida')]}">
               <tree string="Ventas" editable="bottom">
                   <field name="seriesdisponibles"/>
                   <field name="productod"/>

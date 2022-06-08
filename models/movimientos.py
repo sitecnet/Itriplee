@@ -114,16 +114,16 @@ class SeriesWizardRecibir(models.TransientModel):
         for rec in active_obj:
             rec.estado = 'recibida'
         for line in self.productos:
-            cantidadr = 0
-            cantidadf = line.cantidad - cantidadr
+           # cantidadr = 0
+            #cantidadf = line.cantidad - cantidadr
             total = line.producto.cantidad + line.cantidad
             line.producto.update({
                 'cantidad': total
             })
-            line.update({
-                'cantidad_recibida': cantidadr,
-                'cantidad_faltante': cantidadf
-            })
+           # line.update({
+           #     'cantidad_recibida': cantidadr,
+         #       'cantidad_faltante': cantidadf
+          #  })
             for record in line.series:
                 #cantidadr + 1
                 vals = {

@@ -86,6 +86,59 @@ class movimientos(models.Model):
     @api.multi
     def button_retornar(self):
         pass
+##Codigo de Prueba
+class SeriesWizardRecibir(models.TransientModel):
+    _name = 'itriplee.series.wizard.recibir'
+
+    @api.model    
+    def default_get(self, fields):        
+        rec = super(SeriesWizard, self).default_get(fields)
+        product_line = []
+        active_obj = self.env['itriplee.movimientos'].browse(self._context.get('active_ids')) 
+        for producto in active_obj.productos:
+            product_line.append((0, 0, {
+            'movimiento_id': producto.movimiento_id.id,
+            'cantidad': producto.cantidad,
+            'cantidad_recibida': producto.cantidad_recibida,
+            'cantidad_faltante': producto.cantidad_faltante,
+            'producto': producto.producto.id,
+            }))
+            rec['productos'] = product_line        
+        return rec
+
+    productos = fields.One2many('itriplee.movimientos.linea.transient', 'producto_recibir', string='Cantidades', ondelete='cascade')
+
+    @api.multi
+    def button_wizard_recibir(self):
+        active_obj = self.env['itriplee.movimientos'].browse(self._context.get('active_ids'))
+        for rec in active_obj:
+            rec.estado = 'recibida'
+        for line in self.productos:
+            cantidadr = 0
+            cantidadf = line.cantidad - cantidadr
+            total = line.producto.cantidad + line.cantidad
+            line.producto.update({
+                'cantidad': total
+            })
+            line.update({
+                'cantidad_recibida': cantidadr,
+                'cantidad_faltante': cantidadf
+            })
+            for record in line.series:
+                cantidadr += 1
+                vals = {
+                    'name': record.name,
+                    'estado': 'disponible',
+                    'producto': line.producto.id,
+                    'documento': active_obj.documento,
+                    'movimiento_entrada': line.movimiento_id.id
+                }
+                self.env['itriplee.stock.series'].create(vals)
+               # if line.producto.id == line.producto.id:   #Colocar bien el filtro                 
+                #    active_obj.productos.write({'series': [
+                 #       (0, 0, {'name': record.name}),
+                  #  ]})
+    ##Finaliza codigo de prueba
 
 
 class SeriesWizard(models.TransientModel):
@@ -93,6 +146,23 @@ class SeriesWizard(models.TransientModel):
 
     def _default_fecha(self):
         return fields.Date.context_today(self)
+
+    @api.model    
+    def default_get(self, fields):        
+        rec = super(SeriesWizard, self).default_get(fields)
+        product_line = []
+        active_obj = self.env['itriplee.movimientos'].browse(self._context.get('active_ids')) 
+        self.write({'estado' : active_obj.estado})
+        for producto in active_obj.productos:
+            product_line.append((0, 0, {
+            'movimiento_id': producto.movimiento_id.id,
+            'cantidad': producto.cantidad,
+            'producto': producto.producto.id,
+            'series': [],
+            'seriesdisponibles': producto.seriesdisponibles.id,
+            }))
+            rec['productos'] = product_line        
+        return rec
 
     productos = fields.One2many('itriplee.movimientos.linea.transient', 'productow', string='Cantidades', ondelete='cascade')
     estado = fields.Selection([

@@ -83,7 +83,49 @@
 	  <field name="view_mode">form</field>
     <field name="target">new</field>
     </record> 
+<!-- Empieza codigo de prueba-->
+<record id="view_wizard_recibir_itriplee" model="ir.ui.view">
+      <field name="name">itriplee.series.wizard.recibir.view</field>
+      <field name="model">itriplee.series.wizard.recibir</field>
+      <field name="groups_id"></field>
+	    <field name="type">form</field>
+    	<field name="arch" type="xml">
+        <form string="Wizard Form">
+        <group>
+        <field name="estado"/>
+          <field name="productos"
+          attrs="{'invisible': [('estado','=', 'retornada')]}">
+                    <tree string="Cantidades" editable="bottom">
+                      <field name="producto"/>
+                      <field name="cantidad"/>
+                      <field name="cantidad_recibida"/>
+                      <field name="cantidad_faltante"/>
+                      <field name="series"                    
+                      widget="many2many_tags"/>
+                    </tree> 
+                </field>
+          </group>
+
+          <footer>
+           <button name="button_wizard_recibir" 
+           string="Recibir" 
+           class="btn-primary" 
+           type="object"/>
+            <button string="Cancel" class="btn-secondary" special="cancel"/>            
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_wizard_series_recibir" model="ir.actions.act_window">
+    <field name="name">Recibir Wiz</field>
+    <field name="res_model">itriplee.series.wizard.recibir</field>
+    <field name="view_type">form</field>
+	  <field name="view_mode">form</field>
+    <field name="target">new</field>
+    </record> 
     
+    <!-- Finaliza codigo de prueba-->
 
     <record id="action_itriplee_almacen_view" model="ir.actions.act_window">
       <field name="name">Itriplee Almacen</field>
@@ -236,7 +278,7 @@
       <field name="arch" type="xml">
         <form string="Movimientos">
         <header>            
-          <button name="%(action_wizard_series)d" 
+          <button name="%(action_wizard_series_recibir)d" 
           string="recibir" 
           class="oe_highlight" 
           type="action"
@@ -293,11 +335,14 @@
               <tree string="Cantidades" editable="bottom">
                   <!--<field name="movimiento_id"/> -->
                   <field name="cantidad"/>
+                  <field name="cantidad_recibida"/>
+                  <field name="cantidad_faltante"/>
                   <field name="producto"/>
                   <field name="seriesdisponibles" string="Serie"                     
                     domain="[('producto','=', producto),('estado','=', 'disponible')]"
                     attrs="{'invisible': [('parent.estado','=', 'programada')]}"/>
-                  <field name="series" string="Series" widget="many2many_tags"/>
+                  <field name="series" string="Series" widget="many2many_tags"
+                  attrs="{'invisible': [('parent.estado','=', 'programada')]}"/>
               </tree> 
             </field>
             <field name="salidas"

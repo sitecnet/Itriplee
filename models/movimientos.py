@@ -370,6 +370,8 @@ class lineasWizard(models.TransientModel):
     productow = fields.Many2one('itriplee.series.wizard', string='Movimiento')
     salientes = fields.Many2one('itriplee.series.wizard', string='Productos por Salir')
     cantidad = fields.Integer('Cantidad')
+    cantidad_recibida = fields.Integer('Cantidad Recibida')
+    cantidad_faltante = fields.Integer('Cantidad Faltante')
     producto = fields.Many2one('itriplee.catalogo')
     producto_recibir = fields.Many2one('itriplee.series.wizard.recibir', string='Movimiento')
     movimiento_id = fields.Many2one('itriplee.movimientos', string='Movimiento')
@@ -389,6 +391,8 @@ class lineas_movimientos(models.Model):
 
     movimiento_id = fields.Many2one('itriplee.movimientos', string='Movimiento')
     cantidad = fields.Integer('Cantidad')
+    cantidad_recibida = fields.Integer('Cantidad Recibida')
+    cantidad_faltante = fields.Integer('Cantidad Faltante')
     producto = fields.Many2one('itriplee.catalogo')
     series = fields.One2many('itriplee.movimientos.series', 'movimiento', string='name', ondelete='cascade')
     seriesdisponibles = fields.Many2one('itriplee.stock.series', string='Series')

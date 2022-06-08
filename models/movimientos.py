@@ -92,7 +92,7 @@ class SeriesWizardRecibir(models.TransientModel):
 
     @api.model    
     def default_get(self, fields):        
-        rec = super(SeriesWizard, self).default_get(fields)
+        rec = super(SeriesWizardRecibir, self).default_get(fields)
         product_line = []
         active_obj = self.env['itriplee.movimientos'].browse(self._context.get('active_ids')) 
         for producto in active_obj.productos:

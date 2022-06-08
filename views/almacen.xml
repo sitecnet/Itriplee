@@ -276,7 +276,7 @@
       <field name="arch" type="xml">
         <form string="Movimientos">
         <header>            
-          <button name="%(action_wizard_series_recibir)d" 
+          <button name="%(action_wizard_series)d" 
           string="recibir" 
           class="oe_highlight" 
           type="action"

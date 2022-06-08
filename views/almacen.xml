@@ -336,11 +336,10 @@
                   <field name="cantidad_recibida"/>
                   <field name="cantidad_faltante"/>
                   <field name="producto"/>
-                  <field name="seriesdisponibles" string="Serie"                     
+                <!--  <field name="seriesdisponibles" string="Serie"                     
                     domain="[('producto','=', producto),('estado','=', 'disponible')]"
-                    attrs="{'invisible': [('parent.estado','=', 'programada')]}"/>
-                  <field name="series" string="Series" widget="many2many_tags"
-                  attrs="{'invisible': [('parent.estado','=', 'programada')]}"/>
+                    attrs="{'invisible': [('parent.estado','=', 'programada')]}"/>-->
+                  <field name="series" string="Series" widget="many2many_tags"/>
               </tree> 
             </field>
             <field name="salidas"

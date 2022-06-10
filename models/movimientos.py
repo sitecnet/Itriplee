@@ -99,9 +99,10 @@ class SeriesWizardRecibir(models.TransientModel):
             product_line.append((0, 0, {
             'movimiento_id': producto.movimiento_id.id,
             'cantidad': producto.cantidad,
-            'cantidad_recibida': producto.cantidad_recibida,
-            'cantidad_faltante': producto.cantidad_faltante,
+            #'cantidad_recibida': producto.cantidad_recibida,
+            #'cantidad_faltante': producto.cantidad_faltante,
             'producto': producto.producto.id,
+            'series': [],
             }))
             rec['productos'] = product_line        
         return rec

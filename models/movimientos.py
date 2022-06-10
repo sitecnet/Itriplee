@@ -128,7 +128,7 @@ class SeriesWizardRecibir(models.TransientModel):
                             'movimiento_entrada': line.movimiento_id.id,
                         }
                         self.env['itriplee.stock.series'].create(vals)
-                        a.producto.write({'series': [
+                        a.write({'series': [
                             (0, 0, {'name': record.name}),
                         ]})  
                     cantidadr = recibidos + line.cantidad_recibida
@@ -137,7 +137,7 @@ class SeriesWizardRecibir(models.TransientModel):
                     line.producto.update({
                             'cantidad': total
                             }) 
-                    a.producto.update({
+                    a.update({
                             'cantidad_recibida': cantidadr,
                             'cantidad_faltante': cantidadf,
                             })

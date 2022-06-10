@@ -127,7 +127,7 @@ class SeriesWizardRecibir(models.TransientModel):
                 'cantidad_faltante': cantidadf
             })
             for record in line.series:
-                recibidos + 1
+                self.recibidos + 1
                 vals = {
                     'name': record.name,
                     'estado': 'disponible',

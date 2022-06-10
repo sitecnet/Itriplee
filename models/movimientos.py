@@ -114,32 +114,32 @@ class SeriesWizardRecibir(models.TransientModel):
         active_obj = self.env['itriplee.movimientos'].browse(self._context.get('active_ids'))        
         for rec in active_obj:
             rec.estado = 'recibida'
-        for line in self.productos:
-            if line.producto == active_obj.productos.producto:
-                recibidos = 0          
-                for record in line.series:                
-                    recibidos += 1
-                    vals = {
-                        'name': record.name,
-                        'estado': 'disponible',
-                        'producto': line.producto.id,
-                        'documento': active_obj.documento,
-                        'movimiento_entrada': line.movimiento_id.id,
-                    }
-                    self.env['itriplee.stock.series'].create(vals)
-                    active_obj.productos.write({'series': [
-                        (0, 0, {'name': record.name}),
-                    ]})  
-                cantidadr = recibidos + line.cantidad_recibida
-                cantidadf = line.cantidad - cantidadr
-                total = line.producto.cantidad + recibidos
-                line.producto.update({
-                        'cantidad': total
-                        }) 
-                active_obj.productos.update({
-                        'cantidad_recibida': cantidadr,
-                        'cantidad_faltante': cantidadf,
-                        })
+            for line in self.productos:
+                if line.producto == rec.productos.producto:
+                    recibidos = 0          
+                    for record in line.series:                
+                        recibidos += 1
+                        vals = {
+                            'name': record.name,
+                            'estado': 'disponible',
+                            'producto': line.producto.id,
+                            'documento': active_obj.documento,
+                            'movimiento_entrada': line.movimiento_id.id,
+                        }
+                        self.env['itriplee.stock.series'].create(vals)
+                        rec.productos.write({'series': [
+                            (0, 0, {'name': record.name}),
+                        ]})  
+                    cantidadr = recibidos + line.cantidad_recibida
+                    cantidadf = line.cantidad - cantidadr
+                    total = line.producto.cantidad + recibidos
+                    line.producto.update({
+                            'cantidad': total
+                            }) 
+                    rec.productos.update({
+                            'cantidad_recibida': cantidadr,
+                            'cantidad_faltante': cantidadf,
+                            })
                 
     ##Finaliza codigo de prueba
 

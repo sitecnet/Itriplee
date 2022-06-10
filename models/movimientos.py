@@ -112,10 +112,10 @@ class SeriesWizardRecibir(models.TransientModel):
     @api.multi
     def button_wizard_recibir(self):
         active_obj = self.env['itriplee.movimientos'].browse(self._context.get('active_ids'))
+        recibidos = 0
         for rec in active_obj:
             rec.estado = 'recibida'
-        for line in self.productos:
-            recibidos = 0
+        for line in self.productos:            
             cantidadr = recibidos + line.cantidad_recibida
             cantidadf = line.cantidad - cantidadr
             total = line.producto.cantidad + recibidos                       

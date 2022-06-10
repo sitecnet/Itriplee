@@ -129,7 +129,7 @@ class SeriesWizardRecibir(models.TransientModel):
                 active_obj.productos.write({'series': [
                     (0, 0, {'name': record.name}),
                 ]})
-            if line.producto.id == self.producto.id:
+            if line.producto.id == self.productos.producto.id:
                 cantidadr = recibidos + line.cantidad_recibida
                 cantidadf = line.cantidad - cantidadr
                 total = line.producto.cantidad + recibidos

@@ -118,7 +118,7 @@ class SeriesWizardRecibir(models.TransientModel):
             recibidos = 0
             cantidadr = recibidos + line.cantidad_recibida
             cantidadf = line.cantidad - cantidadr
-            total = line.producto.cantidad + line.recibidos
+            total = line.producto.cantidad + recibidos
             line.producto.update({
                 'cantidad': total
             })

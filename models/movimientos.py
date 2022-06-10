@@ -115,33 +115,32 @@ class SeriesWizardRecibir(models.TransientModel):
         for rec in active_obj:
             rec.estado = 'recibida'
         for line in self.productos:
-            recibidos = 0          
-            for record in line.series:                
-                recibidos += 1
-                vals = {
-                    'name': record.name,
-                    'estado': 'disponible',
-                    'producto': line.producto.id,
-                    'documento': active_obj.documento,
-                    'movimiento_entrada': line.movimiento_id.id,
-                }
-                self.env['itriplee.stock.series'].create(vals)
-                active_obj.productos.write({'series': [
-                    (0, 0, {'name': record.name}),
-                ]})
-        if line.producto == active_obj.productos.producto:
-
-            cantidadr = recibidos + line.cantidad_recibida
-            cantidadf = line.cantidad - cantidadr
-            total = line.producto.cantidad + recibidos
-            line.producto.update({
-                    'cantidad': total
-                    }) 
-            active_obj.productos.update({
-                    'cantidad_recibida': cantidadr,
-                    'cantidad_faltante': cantidadf,
-                    })
-            
+            if line.producto == active_obj.productos.producto:
+                recibidos = 0          
+                for record in line.series:                
+                    recibidos += 1
+                    vals = {
+                        'name': record.name,
+                        'estado': 'disponible',
+                        'producto': line.producto.id,
+                        'documento': active_obj.documento,
+                        'movimiento_entrada': line.movimiento_id.id,
+                    }
+                    self.env['itriplee.stock.series'].create(vals)
+                    active_obj.productos.write({'series': [
+                        (0, 0, {'name': record.name}),
+                    ]})  
+                cantidadr = recibidos + line.cantidad_recibida
+                cantidadf = line.cantidad - cantidadr
+                total = line.producto.cantidad + recibidos
+                line.producto.update({
+                        'cantidad': total
+                        }) 
+                active_obj.productos.update({
+                        'cantidad_recibida': cantidadr,
+                        'cantidad_faltante': cantidadf,
+                        })
+                
     ##Finaliza codigo de prueba
 
 

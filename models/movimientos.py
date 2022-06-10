@@ -130,15 +130,16 @@ class SeriesWizardRecibir(models.TransientModel):
                     (0, 0, {'name': record.name}),
                 ]})
         if line.producto == active_obj.productos.producto:
-                cantidadr = recibidos + line.cantidad_recibida
-                cantidadf = line.cantidad - cantidadr
-                total = line.producto.cantidad + recibidos
-                line.producto.update({
-                        'cantidad': total
+
+            cantidadr = recibidos + line.cantidad_recibida
+            cantidadf = line.cantidad - cantidadr
+            total = line.producto.cantidad + recibidos
+            line.producto.update({
+                    'cantidad': total
                     }) 
-                active_obj.productos.update({
-                        'cantidad_recibida': cantidadr,
-                        'cantidad_faltante': cantidadf,
+            active_obj.productos.update({
+                    'cantidad_recibida': cantidadr,
+                    'cantidad_faltante': cantidadf,
                     })
             
     ##Finaliza codigo de prueba

@@ -118,14 +118,7 @@ class SeriesWizardRecibir(models.TransientModel):
             recibidos = 0
             cantidadr = recibidos + line.cantidad_recibida
             cantidadf = line.cantidad - cantidadr
-            total = line.producto.cantidad + recibidos
-            line.producto.update({
-                'cantidad': total
-            })
-            active_obj.update({
-                'cantidad_recibida': cantidadr,
-                'cantidad_faltante': cantidadf
-            })
+            total = line.producto.cantidad + recibidos                       
             for record in line.series:
                 self.recibidos + 1
                 vals = {
@@ -133,9 +126,16 @@ class SeriesWizardRecibir(models.TransientModel):
                     'estado': 'disponible',
                     'producto': line.producto.id,
                     'documento': active_obj.documento,
-                    'movimiento_entrada': line.movimiento_id.id
+                    'movimiento_entrada': line.movimiento_id.id,
                 }
                 self.env['itriplee.stock.series'].create(vals)
+        line.producto.update({
+                'cantidad': total
+            }) 
+        active_obj.update({
+                'cantidad_recibida': cantidadr,
+                'cantidad_faltante': cantidadf,
+            })
                # if line.producto.id == line.producto.id:   #Colocar bien el filtro                 
                 #    active_obj.productos.write({'series': [
                  #       (0, 0, {'name': record.name}),

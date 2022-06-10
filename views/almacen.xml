@@ -50,7 +50,7 @@
                 </field>
           </group>
           <footer>
-           <button name="button_wizard" 
+           <button name="button_wizard_recibir" 
            string="Recibir" 
            class="btn-primary" 
            type="object"
@@ -276,7 +276,7 @@
       <field name="arch" type="xml">
         <form string="Movimientos">
         <header>            
-          <button name="%(action_wizard_series)d" 
+          <button name="%(action_wizard_series_recibir)d" 
           string="recibir" 
           class="oe_highlight" 
           type="action"

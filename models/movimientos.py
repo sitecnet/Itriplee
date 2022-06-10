@@ -132,7 +132,7 @@ class SeriesWizardRecibir(models.TransientModel):
         line.producto.update({
                 'cantidad': total
             }) 
-        active_obj.update({
+        active_obj.productos.update({
                 'cantidad_recibida': cantidadr,
                 'cantidad_faltante': cantidadf,
             })

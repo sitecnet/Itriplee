@@ -111,15 +111,12 @@ class SeriesWizardRecibir(models.TransientModel):
 
     @api.multi
     def button_wizard_recibir(self):
-        active_obj = self.env['itriplee.movimientos'].browse(self._context.get('active_ids'))
-        recibidos = 0
+        active_obj = self.env['itriplee.movimientos'].browse(self._context.get('active_ids'))        
         for rec in active_obj:
             rec.estado = 'recibida'
-        for line in self.productos:            
-            cantidadr = recibidos + line.cantidad_recibida
-            cantidadf = line.cantidad - cantidadr
-            total = line.producto.cantidad + recibidos                       
-            for record in line.series:
+        for line in self.productos:
+            recibidos = 0          
+            for record in line.series:                
                 recibidos += 1
                 vals = {
                     'name': record.name,
@@ -132,6 +129,9 @@ class SeriesWizardRecibir(models.TransientModel):
                 active_obj.productos.write({'series': [
                     (0, 0, {'name': record.name}),
                 ]})
+        cantidadr = recibidos + line.cantidad_recibida
+        cantidadf = line.cantidad - cantidadr
+        total = line.producto.cantidad + recibidos
         line.producto.update({
                 'cantidad': total
             }) 
@@ -139,10 +139,6 @@ class SeriesWizardRecibir(models.TransientModel):
                 'cantidad_recibida': cantidadr,
                 'cantidad_faltante': cantidadf,
             })
-               # if line.producto.id == line.producto.id:   #Colocar bien el filtro                 
-                #    active_obj.productos.write({'series': [
-                 #       (0, 0, {'name': record.name}),
-                  #  ]})
     ##Finaliza codigo de prueba
 
 

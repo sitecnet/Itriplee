@@ -99,8 +99,8 @@ class SeriesWizardRecibir(models.TransientModel):
             product_line.append((0, 0, {
             'movimiento_id': producto.movimiento_id.id,
             'cantidad': producto.cantidad,
-            #'cantidad_recibida': producto.cantidad_recibida,
-            #'cantidad_faltante': producto.cantidad_faltante,
+            'cantidad_recibida': producto.cantidad_recibida,
+            'cantidad_faltante': producto.cantidad_faltante,
             'producto': producto.producto.id,
             'series': [],
             }))
@@ -115,18 +115,19 @@ class SeriesWizardRecibir(models.TransientModel):
         for rec in active_obj:
             rec.estado = 'recibida'
         for line in self.productos:
-           # cantidadr = 0
-            #cantidadf = line.cantidad - cantidadr
-            total = line.producto.cantidad + line.cantidad
+            recibidos = 0
+            cantidadr = recibidos + line.cantidad_recibida
+            cantidadf = line.cantidad - cantidadr
+            total = line.producto.cantidad + line.recibidos
             line.producto.update({
                 'cantidad': total
             })
-           # line.update({
-           #     'cantidad_recibida': cantidadr,
-         #       'cantidad_faltante': cantidadf
-          #  })
+            active_obj.update({
+                'cantidad_recibida': cantidadr,
+                'cantidad_faltante': cantidadf
+            })
             for record in line.series:
-                #cantidadr + 1
+                recibidos + 1
                 vals = {
                     'name': record.name,
                     'estado': 'disponible',

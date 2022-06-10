@@ -120,7 +120,7 @@ class SeriesWizardRecibir(models.TransientModel):
             cantidadf = line.cantidad - cantidadr
             total = line.producto.cantidad + recibidos                       
             for record in line.series:
-                recibidos + 1
+                recibidos += 1
                 vals = {
                     'name': record.name,
                     'estado': 'disponible',
@@ -129,6 +129,7 @@ class SeriesWizardRecibir(models.TransientModel):
                     'movimiento_entrada': line.movimiento_id.id,
                 }
                 self.env['itriplee.stock.series'].create(vals)
+                active_obj.productos.series.create(record.name)
         line.producto.update({
                 'cantidad': total
             }) 

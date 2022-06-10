@@ -116,7 +116,7 @@ class SeriesWizardRecibir(models.TransientModel):
             rec.estado = 'recibida'
         for a in active_obj.productos:
             for line in self.productos:
-                if line.producto == a.productos.producto:
+                if line.producto == a.producto:
                     recibidos = 0          
                     for record in line.series:                
                         recibidos += 1

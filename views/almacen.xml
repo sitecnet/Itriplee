@@ -333,7 +333,8 @@
               <tree string="Cantidades" editable="bottom">
                   <!--<field name="movimiento_id"/> -->
                   <field name="cantidad"/>
-                  <field name="cantidad_recibida"/>
+                  <field name="cantidad_recibida"
+                  invisible="context.get('estado') = 'recibida'"/>
                   <field name="cantidad_faltante"/>
                   <field name="producto"/>
                 <!--  <field name="seriesdisponibles" string="Serie"                     

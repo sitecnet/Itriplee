@@ -13,7 +13,8 @@ class movimientos(models.Model):
     name = fields.Char(string='ID de Movimiento', readonly=True, index=True,
                        default=lambda self: ('New'))
     estado = fields.Selection([
-        ("programada","Programada"),
+        ("1","1"),
+        ("2","Programada"),
         ("solicitada","Solicitada"),
         ("recibida","Recibida"),
         ("atrasada","Atrasada"),
@@ -21,7 +22,7 @@ class movimientos(models.Model):
         ("surtida","Surtida"),
         ("retornada","Refacciones retornadas"),
         ("entregadas","Refacciones entregadas"),
-        ], 'Estado del movimiento', default='programada')
+        ], 'Estado del movimiento', default='1')
     tipo = fields.Selection([
         ("entrada","Entrada"),
         ("salida","Salida"),
@@ -196,8 +197,7 @@ class SeriesWizard(models.TransientModel):
 
     productos = fields.One2many('itriplee.movimientos.linea.transient', 'productow', string='Cantidades', ondelete='cascade')
     estado = fields.Selection([
-        ("1","1"),
-        ("2","Programada"),
+        ("programada","Programada"),
         ("solicitada","Solicitada"),
         ("recibida","Recibida"),
         ("atrasada","Atrasada"),
@@ -205,7 +205,7 @@ class SeriesWizard(models.TransientModel):
         ("retornada","Refacciones retornadas"),
         ("surtida","Surtida"),
         ("entregadas","Entregadas"),
-        ], 'Estado del movimiento', default='1')
+        ], 'Estado del movimiento', default='programada')
     fecha = fields.Date('Fecha', default=_default_fecha)
     salientes = fields.One2many('itriplee.movimientos.linea.transient', 'productow', string='Equipos por Salir', ondelete='cascade', domain=[('regresar','=',False)])
 

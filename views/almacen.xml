@@ -334,7 +334,7 @@
                   <!--<field name="movimiento_id"/> -->
                   <field name="cantidad"/>
                   <field name="cantidad_recibida"
-                  invisible="context.get('estado') == 'recibida'"/>
+                  invisible="context.get('estado') == 1"/>
                   <field name="cantidad_faltante"/>
                   <field name="producto"/>
                 <!--  <field name="seriesdisponibles" string="Serie"                     
